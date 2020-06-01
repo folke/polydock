@@ -9,10 +9,10 @@ export type Settings = {
 
 const defaults: Settings = {
   position: "top",
-  alignment: "start",
-  offset: [400, 0],
+  alignment: "center",
+  offset: [0, 0],
   iconSize: 40,
-  activeWorkspaceOnly: true,
+  activeWorkspaceOnly: false,
   unhideCommand: "bspc node {window} -g hidden=off -f",
 }
 

@@ -1,15 +1,15 @@
-import * as dockitem from "./dockitem"
+import { DockItem } from "./dockitem"
 import * as config from "./config"
 
 import * as Gtk from "./types/Gtk-3.0"
 import * as Wnck from "./types/Wnck-3.0"
 
 export class Dock {
-  items = new Map<number, dockitem.DockItem>()
+  items = new Map<number, DockItem>()
   toolbar = new Gtk.Toolbar()
   screen: Wnck.Screen
 
-  constructor(horizontal = true) {
+  constructor(public horizontal = true) {
     const screen = Wnck.Screen.get_default()
     if (!screen) throw new Error("No screens detected!")
     this.screen = screen
@@ -41,7 +41,7 @@ export class Dock {
         if (!this.items.has(xid)) {
           changes++
           console.log(`+ ${window.get_class_instance_name()}`)
-          const item = new dockitem.DockItem(window)
+          const item = new DockItem(window, this.horizontal)
           this.toolbar.add(item.button)
           this.items.set(xid, item)
         }

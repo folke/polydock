@@ -30,7 +30,9 @@ toolbutton button {
 }
 
 toolbutton.hidden button {
-  opacity: 0.8;
+}
+toolbutton.hidden button image {
+  opacity: 0.2;
 }
 
 toolbar.vertical toolbutton button {

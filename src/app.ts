@@ -1,12 +1,12 @@
 import * as config from "./config"
-import * as dock from "./dock"
+import { Dock } from "./dock"
 
 import * as Gtk from "./types/Gtk-3.0"
 import * as Gdk from "./types/Gdk-3.0"
 
 export class App {
   window: Gtk.Window
-  dock: dock.Dock
+  dock: Dock
 
   constructor() {
     const win = new Gtk.Window({
@@ -31,9 +31,7 @@ export class App {
 
     win.connect("size-allocate", () => this.updatePosition())
 
-    this.dock = new dock.Dock(
-      ["top", "bottom"].includes(config.settings.position)
-    )
+    this.dock = new Dock(["top", "bottom"].includes(config.settings.position))
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     win.add(this.dock.toolbar)
@@ -54,7 +52,7 @@ export class App {
 
     // Load CSS
     const css = new Gtk.CssProvider()
-    css.load_from_path("./config/theme.css")
+    css.load_from_path(`./config/theme.css`)
     Gtk.StyleContext.add_provider_for_screen(
       this.window.get_screen(),
       css,
