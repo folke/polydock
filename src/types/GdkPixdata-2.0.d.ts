@@ -2,14 +2,12 @@
  * GdkPixdata-2.0
  */
 
-/// <reference types="node" />
-/// <reference path="GdkPixbuf-2.0.d.ts" />
-/// <reference path="Gio-2.0.d.ts" />
-/// <reference path="GObject-2.0.d.ts" />
-/// <reference path="GLib-2.0.d.ts" />
-/// <reference path="GModule-2.0.d.ts" />
-
-declare namespace GdkPixdata {
+import * as Gjs from './Gjs';
+import * as GdkPixbuf from './GdkPixbuf-2.0';
+import * as Gio from './Gio-2.0';
+import * as GObject from './GObject-2.0';
+import * as GLib from './GLib-2.0';
+import * as GModule from './GModule-2.0';
 
 export enum PixdataDumpType {
     PIXDATA_STREAM,
@@ -33,20 +31,19 @@ export enum PixdataType {
 }
 export const PIXBUF_MAGIC_NUMBER: number
 export const PIXDATA_HEADER_LENGTH: number
-export function pixbufFromPixdata(pixdata: Pixdata, copyPixels: boolean): GdkPixbuf.Pixbuf
+export function pixbuf_from_pixdata(pixdata: Pixdata, copy_pixels: boolean): GdkPixbuf.Pixbuf
 export class Pixdata {
     /* Fields of GdkPixdata.Pixdata */
     magic: number
     length: number
-    pixdataType: number
+    pixdata_type: number
     rowstride: number
     width: number
     height: number
-    pixelData: any
+    pixel_data: Gjs.byteArray.ByteArray
     /* Methods of GdkPixdata.Pixdata */
-    deserialize(stream: any): boolean
-    serialize(): any
-    toCsource(name: string, dumpType: PixdataDumpType): GLib.String
+    deserialize(stream: Gjs.byteArray.ByteArray): boolean
+    serialize(): Gjs.byteArray.ByteArray
+    to_csource(name: string, dump_type: PixdataDumpType): GLib.String
     static name: string
-}
 }
