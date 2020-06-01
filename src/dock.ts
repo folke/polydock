@@ -1,69 +1,75 @@
-import { DockItem } from "./dock-item"
-import { Gtk, Wnck } from "./libs"
+import * as dockitem from "./dockitem"
+import * as config from "./config"
+
+import * as Gtk from "./types/Gtk-3.0"
+import * as Wnck from "./types/Wnck-3.0"
 
 export class Dock {
-  items = new Map<number, DockItem>()
+  items = new Map<number, dockitem.DockItem>()
   toolbar = new Gtk.Toolbar()
   screen: Wnck.Screen
-  active = 0
 
   constructor(horizontal = true) {
-    const screen = Wnck.Screen.getDefault()
+    const screen = Wnck.Screen.get_default()
     if (!screen) throw new Error("No screens detected!")
     this.screen = screen
-    this.toolbar.setShowArrow(false)
-    this.toolbar.setOrientation(
+    this.toolbar.set_show_arrow(false)
+    this.toolbar.set_orientation(
       horizontal ? Gtk.Orientation.HORIZONTAL : Gtk.Orientation.VERTICAL
     )
-
+    this.screen.force_update()
     this.update()
-    screen.on("active-window-changed", () => this.update())
-    screen.on("window-opened", () => this.update())
-    screen.on("window-closed", () => this.update())
+    screen.connect("active-workspace-changed", () => this.update())
+    screen.connect("active-window-changed", () => this.update())
+    screen.connect("window-opened", () => this.update())
+    screen.connect("window-closed", () => this.update())
   }
 
   update() {
-    // this.screen.forceUpdate()
     const keep = new Set<number>()
-    const windows = this.screen.getWindows()
+    let windows = this.screen.get_windows()
+    if (!windows) return
+    if (config.settings.activeWorkspaceOnly) {
+      const activeWorkspace = this.screen.get_active_workspace()
+      windows = windows.filter((w) => w.is_on_workspace(activeWorkspace))
+    }
     let changes = 0
     if (windows) {
       windows.forEach((window) => {
-        const xid = window.getXid()
+        const xid = window.get_xid()
         keep.add(xid)
         if (!this.items.has(xid)) {
           changes++
-          console.log(`+ ${window.getClassInstanceName()}`)
-          const item = new DockItem(window)
+          console.log(`+ ${window.get_class_instance_name()}`)
+          const item = new dockitem.DockItem(window)
           this.toolbar.add(item.button)
           this.items.set(xid, item)
         }
       })
+
+      const activeXid = this.screen.get_active_window()?.get_xid()
+
       for (const [xid, item] of this.items.entries()) {
         if (!keep.has(xid)) {
           changes++
-          console.log(`- ${item.window.getClassInstanceName()}`)
+          console.log(`- ${item.window.get_class_instance_name()}`)
           this.items.delete(xid)
           this.toolbar.remove(item.button)
+        } else {
+          item.setClass("active-window", item.window.get_xid() == activeXid)
+          item.setClass("hidden", item.isHidden())
         }
       }
     }
 
-    const activeXid = this.screen.getActiveWindow()?.getXid()
-    if (activeXid !== this.active) {
-      this.items.get(this.active)?.setActive(false)
-      this.items.get(activeXid)?.setActive(true)
-      this.active = activeXid
-    }
-
     if (changes) {
-      this.toolbar.showAll()
-      const [, naturalSize] = this.toolbar.getPreferredSize()
+      this.toolbar.show_all()
+      const [, naturalSize] = this.toolbar.get_preferred_size()
       if (naturalSize) {
-        this.toolbar.getWindow()?.resize(naturalSize.width, naturalSize.height)
+        this.toolbar.get_window()?.resize(naturalSize.width, naturalSize.height)
       }
       console.log("------")
-      console.log()
+      // console.log()
     }
   }
 }

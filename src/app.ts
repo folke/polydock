@@ -1,11 +1,12 @@
-import { Gtk, Gdk } from "./libs"
-import { resolve } from "path"
-import { Dock } from "./dock"
-import config from "./config"
+import * as config from "./config"
+import * as dock from "./dock"
+
+import * as Gtk from "./types/Gtk-3.0"
+import * as Gdk from "./types/Gdk-3.0"
 
 export class App {
   window: Gtk.Window
-  dock: Dock
+  dock: dock.Dock
 
   constructor() {
     const win = new Gtk.Window({
@@ -14,46 +15,48 @@ export class App {
     })
     this.window = win
 
-    win.setWmclass("polydock", "Polydock")
-    win.setDecorated(false)
-    win.setTypeHint(Gdk.WindowTypeHint.DOCK)
+    win.set_wmclass("polydock", "Polydock")
+    win.set_decorated(false)
+    win.set_type_hint(Gdk.WindowTypeHint.DOCK)
     win.stick()
-    win.setKeepAbove(true)
-    win.setSkipTaskbarHint(true)
-    win.on("show", Gtk.main)
-    win.on("destroy", Gtk.mainQuit)
-    win.on("delete-event", () => false)
+    win.set_keep_above(true)
+    win.set_skip_taskbar_hint(true)
+    win.connect("show", () => Gtk.main())
+    win.connect("destroy", () => Gtk.main_quit())
+    win.connect("delete-event", () => false)
 
-    win.setResizable(true)
+    win.set_resizable(true)
 
     this.loadStyles()
 
-    win.on("size-allocate", () => this.updatePosition())
+    win.connect("size-allocate", () => this.updatePosition())
 
-    this.dock = new Dock(["top", "bottom"].includes(config.settings.position))
+    this.dock = new dock.Dock(
+      ["top", "bottom"].includes(config.settings.position)
+    )
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     win.add(this.dock.toolbar)
-    win.showAll()
+    win.show_all()
   }
 
   loadStyles() {
     // Make window transparent if possible
-    const haveAlpha = this.window.getScreen().getRgbaVisual() ? true : false
+    const haveAlpha = this.window.get_screen().get_rgba_visual() ? true : false
 
     console.log(`Alpha Visuals: ${haveAlpha}`)
-    console.log(`Composited: ${this.window.isComposited()}`)
+    console.log(`Composited: ${this.window.is_composited()}`)
 
     if (haveAlpha) {
-      this.window.setVisual(this.window.getScreen().getRgbaVisual())
-      this.window.setAppPaintable(true)
+      this.window.set_visual(this.window.get_screen().get_rgba_visual())
+      this.window.set_app_paintable(true)
     }
 
     // Load CSS
     const css = new Gtk.CssProvider()
-    css.loadFromPath(resolve(__dirname, "../config/theme.css"))
-    Gtk.StyleContext.addProviderForScreen(
-      this.window.getScreen(),
+    css.load_from_path("./config/theme.css")
+    Gtk.StyleContext.add_provider_for_screen(
+      this.window.get_screen(),
       css,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
     )
@@ -64,12 +67,12 @@ export class App {
     let y = 0
 
     const screenSize = {
-      width: this.window.getScreen().getWidth(),
-      height: this.window.getScreen().getHeight(),
+      width: this.window.get_screen().get_width(),
+      height: this.window.get_screen().get_height(),
     }
     const size = {
-      width: this.window.getAllocatedWidth(),
-      height: this.window.getAllocatedHeight(),
+      width: this.window.get_allocated_width(),
+      height: this.window.get_allocated_height(),
     }
 
     if (["top", "bottom"].includes(config.settings.position)) {
@@ -98,7 +101,7 @@ export class App {
     x += config.settings.offset?.[0] ?? 0
     y += config.settings.offset?.[1] ?? 0
 
-    const pos = this.window.getPosition()
+    const pos = this.window.get_position()
     if (pos[0] != x || pos[1] != y) {
       this.window.move(x, y)
       console.log(
@@ -107,4 +110,3 @@ export class App {
     }
   }
 }
-new App()

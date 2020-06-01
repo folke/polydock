@@ -23,10 +23,18 @@ toolbar.vertical {
 }
 
 toolbutton button {
-  padding: 5px 5px;
+  padding: 5px 8px;
   border: none;
   transition: 0.2s linear;
   transition-property: all;
+}
+
+toolbutton.hidden button {
+  opacity: 0.8;
+}
+
+toolbar.vertical toolbutton button {
+  padding: 8px 5px;
 }
 
 toolbutton image {

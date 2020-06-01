@@ -4,7 +4,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -21,10 +21,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2019, // Allows for the parsing of modern ECMAScript features
     sourceType: "module", // Allows for the use of imports
-    project: "./tsconfig.json",
+    // project: "./tsconfig.json",
     impliedStrict: true,
     createDefaultProgram: true,
   },
+  ignorePatterns: ["/src/types/*.js", "/src/types/*.ts", "/dist/**", "/lib/**"],
   rules: {
     "array-callback-return": "error",
     "prefer-template": "warn",
