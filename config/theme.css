@@ -10,12 +10,20 @@
 
 toolbar {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+toolbar.horizontal {
   padding-left: 12px;
   padding-right: 12px;
 }
 
+toolbar.vertical {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
 toolbutton button {
-  padding: 5px 6px;
+  padding: 5px 5px;
   border: none;
   transition: 0.2s linear;
   transition-property: all;
@@ -30,8 +38,14 @@ toolbutton button:hover {
   border: none;
 }
 
-toolbutton.active-window button {
+toolbar.horizontal toolbutton.active-window button {
   /* margin-bottom: -4px; */
   border-bottom: 2px solid white;
   padding-bottom: 2px;
+}
+
+toolbar.vertical toolbutton.active-window button {
+  /* margin-bottom: -4px; */
+  border-right: 2px solid white;
+  padding-right: 2px;
 }

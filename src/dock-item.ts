@@ -1,9 +1,5 @@
-import gi from "node-gtk"
 import { execSync } from "child_process"
-
-const Gtk = gi.require("Gtk", "3.0")
-const Wnck = gi.require("Wnck", "3.0")
-const GdkPixbuf = gi.require("GdkPixbuf", "2.0")
+import { Gtk, GdkPixbuf, Wnck } from "./libs"
 
 export class DockItem {
   button = new Gtk.ToolButton()

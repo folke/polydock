@@ -1,11 +1,5 @@
-import gi from "node-gtk"
 import { DockItem } from "./dock-item"
-
-const Gtk = gi.require("Gtk", "3.0")
-const Wnck = gi.require("Wnck", "3.0")
-
-Wnck.setClientType(Wnck.ClientType.PAGER)
-Wnck.setDefaultIconSize(128)
+import { Gtk, Wnck } from "./libs"
 
 export class Dock {
   items = new Map<number, DockItem>()
@@ -13,11 +7,14 @@ export class Dock {
   screen: Wnck.Screen
   active = 0
 
-  constructor() {
+  constructor(horizontal = true) {
     const screen = Wnck.Screen.getDefault()
     if (!screen) throw new Error("No screens detected!")
     this.screen = screen
     this.toolbar.setShowArrow(false)
+    this.toolbar.setOrientation(
+      horizontal ? Gtk.Orientation.HORIZONTAL : Gtk.Orientation.VERTICAL
+    )
 
     this.update()
     screen.on("active-window-changed", () => this.update())
