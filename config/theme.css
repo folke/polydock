@@ -1,0 +1,37 @@
+/* Reset CSS */
+* {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+toolbar {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+toolbutton button {
+  padding: 5px 6px;
+  border: none;
+  transition: 0.2s linear;
+  transition-property: all;
+}
+
+toolbutton image {
+  -gtk-icon-shadow: 1px 2px alpha(black, 0.2);
+}
+
+toolbutton button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+}
+
+toolbutton.active-window button {
+  /* margin-bottom: -4px; */
+  border-bottom: 2px solid white;
+  padding-bottom: 2px;
+}
