@@ -12,7 +12,7 @@ const defaults = {
     theme: "default",
   },
   behaviour: {
-    activeWorkspaceOnly: true,
+    activeWorkspaceOnly: false,
     unhideCommand: "bspc node {window} -g hidden=off -f",
   },
   icons: {} as Record<string, string>,

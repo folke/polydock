@@ -15,7 +15,7 @@ export class DockItem {
 
     this.window.connect("icon-changed", () => {
       this.updateIcon()
-      this.button.show_all()
+      this.button.get_icon_widget()?.show_all()
     })
 
     this.window.connect("state-changed", (_window, _changes, _newState) => {

@@ -37,7 +37,7 @@ export class App {
     // @ts-ignore
     win.add(this.dock.toolbar)
     this.dock.toolbar.connect("check-resize", () => this.updateSize())
-    win.show_all()
+    win.show()
   }
 
   loadStyles() {
@@ -68,10 +68,14 @@ export class App {
     const size = this.window.get_size()
     if (
       naturalSize &&
+      naturalSize.height > 0 &&
+      naturalSize.width > 0 &&
       (naturalSize.width !== size[0] || naturalSize.height !== size[1])
     ) {
+      log(`Size updated to ${naturalSize.width}, ${naturalSize.height}`)
       this.window.resize(naturalSize.width, naturalSize.height)
     }
+    this.autoHide()
   }
 
   updatePosition() {
@@ -120,6 +124,38 @@ export class App {
       log(
         `position updated to ${config.settings.appearance.position}:${config.settings.appearance.alignment} => [${x}, ${y}]`
       )
+      this.autoHide()
     }
+  }
+
+  autoHide() {
+    const active = this.window.get_screen().get_active_window()
+    if (active && window) {
+      const [ax1, ay1, aw, ah] = active.get_geometry()
+      const [bx1, by1] = this.window.get_position()
+      const [bw, bh] = this.window.get_size()
+
+      let show = false
+      // No geometry
+      if (bw === null || bh === null || bx1 === null || by1 === null)
+        show = true
+      else if (aw === null || ah === null || ax1 === null || ay1 === null)
+        show = true
+      // no horizontal overlap
+      else if (ax1 >= bx1 + bw || bx1 >= ax1 + aw) show = true
+      // no vertical overlap
+      else if (ay1 >= by1 + bh || by1 >= ay1 + ah) show = true
+
+      if (show && !this.window.is_visible()) {
+        log("[no-overlap] showing dock")
+        this.window.show()
+      }
+
+      if (!show && this.window.is_visible()) {
+        log(`[overlap] overlapping. Hiding dock`)
+        this.window.hide()
+      }
+    }
+    return true
   }
 }
