@@ -3,7 +3,7 @@ import * as Wnck from "./types/Wnck-3.0"
 import * as GdkPixbuf from "./types/GdkPixbuf-2.0"
 import * as GLib from "./types/GLib-2.0"
 
-import * as config from "./config"
+import config from "./config"
 
 export class DockItem {
   button = new Gtk.ToolButton()
@@ -17,8 +17,8 @@ export class DockItem {
     this.button.connect("clicked", () => {
       const timestamp = new Date().getTime() / 1000
       if (this.isHidden()) {
-        if (config.settings.unhideCommand) {
-          const unhide = config.settings.unhideCommand.replace(
+        if (config.settings.behaviour.unhideCommand) {
+          const unhide = config.settings.behaviour.unhideCommand.replace(
             "{window}",
             `${this.window.get_xid()}`
           )
@@ -42,30 +42,31 @@ export class DockItem {
     const iconTheme = Gtk.IconTheme.get_default()
     let iconName = this.window.get_class_instance_name() || "application"
 
-    // console.log(
-    //   iconTheme
-    //     .listIcons("Applications")
-    //     .filter((x) => x.toLowerCase().includes("google"))
-    // )
-
-    if (iconName.startsWith("calendar.google.com")) iconName = "google-agenda"
-    if (iconName.startsWith("mail.google.com")) iconName = "gmail"
-    if (iconName.startsWith("keep.google.com")) iconName = "keep"
+    // Load custom icons from config
+    for (const [iconK, iconV] of Object.entries(config.settings.icons)) {
+      if (
+        iconName.toLowerCase().includes(iconV.toLowerCase()) &&
+        iconTheme.has_icon(iconK)
+      ) {
+        iconName = iconK
+        break
+      }
+    }
 
     let icon: GdkPixbuf.Pixbuf | null = this.window.get_icon()
 
     if (iconTheme.has_icon(iconName)) {
       icon = iconTheme.load_icon(
         iconName,
-        config.settings.iconSize,
+        config.settings.appearance.iconSize,
         Gtk.IconLookupFlags.FORCE_SIZE
       )
     } else {
       icon = this.window
         .get_icon()
         .scale_simple(
-          config.settings.iconSize,
-          config.settings.iconSize,
+          config.settings.appearance.iconSize,
+          config.settings.appearance.iconSize,
           GdkPixbuf.InterpType.BILINEAR
         )
     }

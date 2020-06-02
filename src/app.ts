@@ -1,8 +1,8 @@
-import * as config from "./config"
 import { Dock } from "./dock"
 
 import * as Gtk from "./types/Gtk-3.0"
 import * as Gdk from "./types/Gdk-3.0"
+import config from "./config"
 
 export class App {
   window: Gtk.Window
@@ -31,7 +31,9 @@ export class App {
 
     win.connect("size-allocate", () => this.updatePosition())
 
-    this.dock = new Dock(["top", "bottom"].includes(config.settings.position))
+    this.dock = new Dock(
+      ["top", "bottom"].includes(config.settings.appearance.position)
+    )
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     win.add(this.dock.toolbar)
@@ -52,7 +54,7 @@ export class App {
 
     // Load CSS
     const css = new Gtk.CssProvider()
-    css.load_from_path(`./config/theme.css`)
+    css.load_from_path(config.theme)
     Gtk.StyleContext.add_provider_for_screen(
       this.window.get_screen(),
       css,
@@ -73,37 +75,38 @@ export class App {
       height: this.window.get_allocated_height(),
     }
 
-    if (["top", "bottom"].includes(config.settings.position)) {
-      if (config.settings.position == "top") y = 0
-      if (config.settings.position == "bottom")
+    if (["top", "bottom"].includes(config.settings.appearance.position)) {
+      if (config.settings.appearance.position == "top") y = 0
+      if (config.settings.appearance.position == "bottom")
         y = screenSize.height - size.height
 
-      if (config.settings.alignment == "start") x = 0
-      if (config.settings.alignment == "center")
+      if (config.settings.appearance.alignment == "start") x = 0
+      if (config.settings.appearance.alignment == "center")
         x = Math.round(screenSize.width / 2 - size.width / 2)
-      if (config.settings.alignment == "end")
+      if (config.settings.appearance.alignment == "end")
         x = Math.round(screenSize.width - size.width)
     }
 
-    if (["left", "right"].includes(config.settings.position)) {
-      if (config.settings.position == "left") x = 0
-      if (config.settings.position == "right") x = screenSize.width - size.width
+    if (["left", "right"].includes(config.settings.appearance.position)) {
+      if (config.settings.appearance.position == "left") x = 0
+      if (config.settings.appearance.position == "right")
+        x = screenSize.width - size.width
 
-      if (config.settings.alignment == "start") y = 0
-      if (config.settings.alignment == "center")
+      if (config.settings.appearance.alignment == "start") y = 0
+      if (config.settings.appearance.alignment == "center")
         y = Math.round(screenSize.height / 2 - size.height / 2)
-      if (config.settings.alignment == "end")
+      if (config.settings.appearance.alignment == "end")
         y = Math.round(screenSize.height - size.height)
     }
 
-    x += config.settings.offset?.[0] ?? 0
-    y += config.settings.offset?.[1] ?? 0
+    x += config.settings.appearance.offsetX ?? 0
+    y += config.settings.appearance.offsetY ?? 0
 
     const pos = this.window.get_position()
     if (pos[0] != x || pos[1] != y) {
       this.window.move(x, y)
       log(
-        `position updated to ${config.settings.position}:${config.settings.alignment} => [${x}, ${y}]`
+        `position updated to ${config.settings.appearance.position}:${config.settings.appearance.alignment} => [${x}, ${y}]`
       )
     }
   }

@@ -1,5 +1,5 @@
-import { DockItem } from "./dockitem"
-import * as config from "./config"
+import { DockItem } from "./dock-item"
+import config from "./config"
 
 import * as Gtk from "./types/Gtk-3.0"
 import * as Wnck from "./types/Wnck-3.0"
@@ -30,12 +30,13 @@ export class Dock {
     const keep = new Set<number>()
     let windows = this.screen.get_windows()
     if (!windows) return
-    if (config.settings.activeWorkspaceOnly) {
+    if (config.settings.behaviour.activeWorkspaceOnly) {
       const activeWorkspace = this.screen.get_active_workspace()
       windows = windows.filter((w) => w.is_on_workspace(activeWorkspace))
     }
     let changes = 0
     if (windows) {
+      // Add any windows we don't know yet
       windows.forEach((window) => {
         const xid = window.get_xid()
         keep.add(xid)
@@ -52,12 +53,14 @@ export class Dock {
       const activeXid = this.screen.get_active_window()?.get_xid()
 
       for (const [xid, item] of this.items.entries()) {
+        // Remove this window
         if (!keep.has(xid)) {
           changes++
           log(`- ${item.window.get_class_instance_name()}`)
           this.items.delete(xid)
           this.toolbar.remove(item.button)
         } else {
+          // Update existing windows attributes
           item.setClass("active-window", item.window.get_xid() == activeXid)
           item.setClass("hidden", item.isHidden())
         }
@@ -66,6 +69,8 @@ export class Dock {
 
     if (changes) {
       this.toolbar.show_all()
+
+      // Resize the window to fit the toolbar
       const [, naturalSize] = this.toolbar.get_preferred_size()
       if (naturalSize) {
         this.toolbar.get_window()?.resize(naturalSize.width, naturalSize.height)
