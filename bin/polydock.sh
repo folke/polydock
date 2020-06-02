@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 me=$(realpath "$0")
-dist=$(dirname "$me")/../dist
+dist=$(realpath $(dirname "$me")/../dist)
 
 gjs -I "$dist" "$dist/polydock.js"
