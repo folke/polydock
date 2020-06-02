@@ -35,18 +35,20 @@ export class Dock {
     // this.toolbar.connect("remove", () => this.toolbar.check_resize())
   }
 
-  getWorkspaceXids(windows: Wnck.Window[]) {
-    const activeWorkspace = this.screen.get_active_workspace()
-    return new Set(
-      windows
-        .filter((w) => w.is_on_workspace(activeWorkspace))
-        .map((x) => x.get_xid())
-    )
-  }
-
   update() {
+    // this.screen.force_update()
     const windows = this.screen.get_windows()
     if (!windows) return log("No Windows!")
+
+    // Remove closed windows
+    const xids = new Set<number>(windows.map((x) => x.get_xid()))
+    for (const [xid, item] of this.items.entries()) {
+      if (!xids.has(xid)) {
+        log(`- ${item.name}`)
+        this.items.delete(xid)
+        this.toolbar.remove(item.button)
+      }
+    }
 
     // Add opened windows
     windows.forEach((window) => {
@@ -55,21 +57,11 @@ export class Dock {
         window.connect("geometry-changed", () => this.toolbar.check_resize())
         window.connect("workspace-changed", () => this.update())
         log(`+ ${window.get_class_instance_name()}`)
-        const item = new DockItem(window, this.horizontal)
+        const item = new DockItem(this.screen, xid, this.horizontal)
         this.toolbar.add(item.button)
         this.items.set(xid, item)
       }
     })
-
-    // Remove closed windows
-    const xids = new Set<number>(windows.map((x) => x.get_xid()))
-    for (const [xid, item] of this.items.entries()) {
-      if (!xids.has(xid)) {
-        log(`- ${item.window.get_class_instance_name()}`)
-        this.items.delete(xid)
-        this.toolbar.remove(item.button)
-      }
-    }
 
     // Update window state
     const workspace = this.screen.get_active_workspace()

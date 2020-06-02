@@ -10,8 +10,12 @@ export class DockItem {
   name: string
   tooltip = ""
 
-  constructor(public window: Wnck.Window, public horizontal: boolean) {
-    this.name = window.get_class_instance_name()
+  constructor(
+    public screen: Wnck.Screen,
+    public xid: number,
+    public horizontal: boolean
+  ) {
+    this.name = this.window.get_class_instance_name().slice()
     this.update()
 
     this.window.connect("icon-changed", () => {
@@ -24,6 +28,18 @@ export class DockItem {
     })
 
     this.button.connect("clicked", () => this.activate())
+  }
+
+  get window() {
+    for (const w of this.screen.get_windows_stacked()) {
+      if (w.get_xid() == this.xid) return w
+    }
+
+    const error = new Error(
+      `Wnck.Window ${this.xid} for ${this.name} no longer exists`
+    )
+    logError(error)
+    throw error
   }
 
   getGroupWindows() {
@@ -96,9 +112,9 @@ export class DockItem {
         Gtk.IconLookupFlags.FORCE_SIZE
       )
     } else {
-      icon = this.window
-        .get_icon()
-        .scale_simple(
+      icon = icon.copy()
+      if (icon)
+        icon = icon.scale_simple(
           config.settings.appearance.iconSize,
           config.settings.appearance.iconSize,
           GdkPixbuf.InterpType.BILINEAR
