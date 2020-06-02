@@ -25,7 +25,7 @@ module.exports = {
     impliedStrict: true,
     createDefaultProgram: true,
   },
-  ignorePatterns: ["/src/types/*.js", "/src/types/*.ts", "/dist/**", "/lib/**"],
+  ignorePatterns: ["/src/types/*.js", "/src/types/*.ts", "/dist/**/*.js"],
   rules: {
     "array-callback-return": "error",
     "prefer-template": "warn",

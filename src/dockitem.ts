@@ -1,5 +1,3 @@
-// import { execSync } from "child_process"
-
 import * as Gtk from "./types/Gtk-3.0"
 import * as Wnck from "./types/Wnck-3.0"
 import * as GdkPixbuf from "./types/GdkPixbuf-2.0"
@@ -9,7 +7,6 @@ import * as config from "./config"
 
 export class DockItem {
   button = new Gtk.ToolButton()
-  popover = new Gtk.Popover()
 
   constructor(public window: Wnck.Window, public horizontal: boolean) {
     this.update()
@@ -18,7 +15,6 @@ export class DockItem {
       this.button.show_all()
     })
     this.button.connect("clicked", () => {
-      this.showPopup()
       const timestamp = new Date().getTime() / 1000
       if (this.isHidden()) {
         if (config.settings.unhideCommand) {
@@ -32,25 +28,6 @@ export class DockItem {
       }
       this.window.activate(timestamp)
     })
-
-    const box = new Gtk.Box()
-    box.set_orientation(
-      !horizontal ? Gtk.Orientation.HORIZONTAL : Gtk.Orientation.VERTICAL
-    )
-    box.pack_start(new Gtk.ModelButton({ label: "foo" }), true, false, 10)
-    box.pack_start(new Gtk.Label({ label: "bar" }), true, false, 10)
-    box.pack_start(new Gtk.Label({ label: "bar" }), true, false, 10)
-    box.pack_start(new Gtk.Label({ label: "bar" }), true, false, 10)
-    box.pack_start(new Gtk.Label({ label: "bar" }), true, false, 10)
-    box.pack_start(new Gtk.Label({ label: "bar" }), true, false, 10)
-    this.popover.add(box)
-    this.popover.set_position(Gtk.PositionType.BOTTOM)
-  }
-
-  showPopup() {
-    this.popover.set_relative_to(this.button)
-    this.popover.show_all()
-    this.popover.popup()
   }
 
   isHidden() {
