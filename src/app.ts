@@ -21,7 +21,6 @@ export class App {
     win.stick()
     win.set_keep_above(true)
     win.set_skip_taskbar_hint(true)
-    win.connect("show", () => Gtk.main())
     win.connect("destroy", () => Gtk.main_quit())
     win.connect("delete-event", () => false)
 
@@ -37,6 +36,7 @@ export class App {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     win.add(this.dock.toolbar)
+    this.dock.toolbar.connect("check-resize", () => this.updateSize())
     win.show_all()
   }
 
@@ -60,6 +60,18 @@ export class App {
       css,
       Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
     )
+  }
+
+  updateSize() {
+    // Resize the window to fit the toolbar
+    const [, naturalSize] = this.dock.toolbar.get_preferred_size()
+    const size = this.window.get_size()
+    if (
+      naturalSize &&
+      (naturalSize.width !== size[0] || naturalSize.height !== size[1])
+    ) {
+      this.window.resize(naturalSize.width, naturalSize.height)
+    }
   }
 
   updatePosition() {
