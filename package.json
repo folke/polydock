@@ -6,7 +6,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "polydock": "bin/polydock.sh"
+    "polydock": "dist/polydock.js"
   },
   "engines": {
     "node": ">=10.0.0"

@@ -3,12 +3,26 @@ import resolve from "@rollup/plugin-node-resolve"
 import replace from "@rollup/plugin-replace"
 // import { terser } from "rollup-plugin-terser"
 import path from "path"
+import { chmodSync } from "fs"
+
+function executable() {
+  let file
+  return {
+    generateBundle(options) {
+      file = options.file
+    },
+
+    writeBundle() {
+      if (file) chmodSync(file, 0o751)
+    },
+  }
+}
 
 export default {
   input: "src/index.ts",
   output: {
     file: "dist/polydock.js",
-    banner: `
+    banner: `#!/usr/bin/gjs
       imports.gi.versions.Gtk = "3.0"
       imports.gi.versions.Wnck = "3.0"
       imports.gi.versions.GdkX11 = "3.0"`,
@@ -35,5 +49,6 @@ export default {
       transforms: ["typescript"],
     }),
     // terser(),
+    executable(),
   ],
 }
