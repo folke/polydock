@@ -8,6 +8,10 @@ export default {
   input: "src/index.ts",
   output: {
     file: "dist/polydock.js",
+    banner: `
+      imports.gi.versions.Gtk = "3.0"
+      imports.gi.versions.Wnck = "3.0"
+      imports.gi.versions.GdkX11 = "3.0"`,
     format: "iife",
     /**
      * @param {string} id
