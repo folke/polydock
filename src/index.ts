@@ -13,3 +13,4 @@ Gtk.init(null)
 
 log("Starting App")
 new App()
+Gtk.main()
