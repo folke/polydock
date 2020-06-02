@@ -71,7 +71,7 @@ export class Dock {
         this.toolbar.get_window()?.resize(naturalSize.width, naturalSize.height)
       }
       log("------")
-      log()
+      log("")
     }
     this.autoHide()
   }

@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "prebuild": "pnpm run lint",
+    "prebuild": "npm run lint",
     "build:app": "npx rollup -c rollup.config.js",
     "build": "npm run build:app",
     "lint:ts": "npx tsc --noEmit",
