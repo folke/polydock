@@ -18,14 +18,19 @@ function executable() {
   }
 }
 
+const externals = new Map()
+
 export default {
   input: "src/index.ts",
   output: {
     file: "dist/polydock.js",
-    banner: `#!/usr/bin/gjs
-      imports.gi.versions.Gtk = "3.0"
-      imports.gi.versions.Wnck = "3.0"
-      imports.gi.versions.GdkX11 = "3.0"`,
+    banner: () => {
+      let ret = `#!/usr/bin/gjs`
+      for (const [lib, version] of externals.entries()) {
+        ret += `\nimports.gi.versions.${lib} = "${version}"`
+      }
+      return ret
+    },
     format: "iife",
     /**
      * @param {string} id
@@ -36,7 +41,12 @@ export default {
    * @param {string} id
    */
   external: (id) => {
-    return id.startsWith("./types")
+    const m = id.match(/^\.\/types\/(.*)-(\d+.\d+)/u)
+    if (m) {
+      externals.set(m[1], m[2])
+      return true
+    }
+    return false
   },
   plugins: [
     replace({ "console.log": "log" }),
