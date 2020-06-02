@@ -19,6 +19,7 @@ export class Dock {
     )
     this.screen.force_update()
     this.update()
+    screen.connect("viewports-changed", () => this.update())
     screen.connect("active-workspace-changed", () => this.update())
     screen.connect("active-window-changed", () => this.update())
     screen.connect("window-opened", () => this.update())
@@ -39,6 +40,7 @@ export class Dock {
         const xid = window.get_xid()
         keep.add(xid)
         if (!this.items.has(xid)) {
+          window.connect("geometry-changed", () => this.autoHide())
           changes++
           console.log(`+ ${window.get_class_instance_name()}`)
           const item = new DockItem(window, this.horizontal)
@@ -71,5 +73,37 @@ export class Dock {
       console.log("------")
       // console.log()
     }
+    this.autoHide()
+  }
+
+  autoHide() {
+    const active = this.screen.get_active_window()
+    const window = this.toolbar.get_window()
+    if (active && window) {
+      const [ax1, ay1, aw, ah] = active.get_geometry()
+      const [bx1, by1, bw, bh] = window.get_geometry()
+
+      let show = false
+      // No geometry
+      if (bw === null || bh === null || bx1 === null || by1 === null)
+        show = true
+      // no horizontal overlap
+      else if (ax1 >= bx1 + bw || bx1 >= ax1 + aw) show = true
+      // no vertical overlap
+      else if (ay1 >= by1 + bh || by1 >= ay1 + ah) show = true
+
+      if (show && !window.is_visible()) {
+        console.log("[no-overlap] showing dock")
+        window.show()
+      }
+
+      if (!show && window.is_visible()) {
+        console.log(
+          `[overlap] overlapping with  ${active.get_class_instance_name()}. Hiding dock`
+        )
+        window.hide()
+      }
+    }
+    return true
   }
 }
