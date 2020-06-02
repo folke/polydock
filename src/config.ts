@@ -13,6 +13,8 @@ const defaults = {
   },
   behaviour: {
     activeWorkspaceOnly: false,
+    showHidden: true,
+    showVisible: false,
     unhideCommand: "bspc node {window} -g hidden=off -f",
   },
   icons: {} as Record<string, string>,

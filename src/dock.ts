@@ -73,14 +73,21 @@ export class Dock {
     }
 
     // Update window state
-    if (config.settings.behaviour.activeWorkspaceOnly) {
-      const workspace = this.getWorkspaceXids(windows)
-      for (const [xid, item] of this.items.entries()) {
-        if (workspace.has(xid)) {
-          item.button.show_all()
-        } else item.button.hide()
-      }
-    } else this.toolbar.show_all()
+    const workspace = this.screen.get_active_workspace()
+    for (const item of this.items.values()) {
+      let visible = true
+      if (
+        config.settings.behaviour.activeWorkspaceOnly &&
+        !item.window.is_on_workspace(workspace)
+      )
+        visible = false
+      if (!config.settings.behaviour.showHidden && item.isHidden())
+        visible = false
+      if (!config.settings.behaviour.showVisible && !item.isHidden())
+        visible = false
+      if (visible) item.button.show_all()
+      else item.button.hide()
+    }
 
     this.toolbar.check_resize()
   }

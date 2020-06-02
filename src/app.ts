@@ -72,7 +72,7 @@ export class App {
       naturalSize.width > 0 &&
       (naturalSize.width !== size[0] || naturalSize.height !== size[1])
     ) {
-      log(`Size updated to ${naturalSize.width}, ${naturalSize.height}`)
+      // log(`Size updated to ${naturalSize.width}, ${naturalSize.height}`)
       this.window.resize(naturalSize.width, naturalSize.height)
     }
     this.autoHide()
@@ -121,9 +121,6 @@ export class App {
     const pos = this.window.get_position()
     if (pos[0] != x || pos[1] != y) {
       this.window.move(x, y)
-      log(
-        `position updated to ${config.settings.appearance.position}:${config.settings.appearance.alignment} => [${x}, ${y}]`
-      )
       this.autoHide()
     }
   }
