@@ -1,0 +1,4 @@
+
+Todo:
+  ☐ Hide Dock when no toolbar windows
+  ☐ Check for segfaults. Possibly write auto restart script
