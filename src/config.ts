@@ -12,7 +12,7 @@ const defaults = {
     theme: "default",
   },
   behaviour: {
-    activeWorkspaceOnly: false,
+    activeWorkspaceOnly: true,
     unhideCommand: "bspc node {window} -g hidden=off -f",
   },
   icons: {} as Record<string, string>,
@@ -55,12 +55,10 @@ class Config {
       let entries = Object.entries(items)
       if (group == "icons")
         entries = (ini.get_keys("icons")?.[0] || []).map((x) => [x, ""])
+      const [haveKeys] = ini.get_keys(group)
       for (const [key, value] of entries) {
-        try {
-          ini.get_value(group, key)
-        } catch {
-          continue
-        }
+        if (!haveKeys || !haveKeys.includes(key)) continue
+
         const data = ini.get_value(group, key)
         if (data) {
           if (typeof value == "boolean")
