@@ -42,8 +42,8 @@ export class App {
     // Make window transparent if possible
     const haveAlpha = this.window.get_screen().get_rgba_visual() ? true : false
 
-    console.log(`Alpha Visuals: ${haveAlpha}`)
-    console.log(`Composited: ${this.window.is_composited()}`)
+    log(`Alpha Visuals: ${haveAlpha}`)
+    log(`Composited: ${this.window.is_composited()}`)
 
     if (haveAlpha) {
       this.window.set_visual(this.window.get_screen().get_rgba_visual())
@@ -102,7 +102,7 @@ export class App {
     const pos = this.window.get_position()
     if (pos[0] != x || pos[1] != y) {
       this.window.move(x, y)
-      console.log(
+      log(
         `position updated to ${config.settings.position}:${config.settings.alignment} => [${x}, ${y}]`
       )
     }

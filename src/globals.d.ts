@@ -1,7 +1,9 @@
 declare global {
+  const ARGV: string[]
   const imports: {
-    gi: {
-      versions: { [key: string]: string }
+    system: {
+      exit: (exitCode) => void
+      programInvocationName: string
     }
   }
 }

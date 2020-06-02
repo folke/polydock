@@ -37,6 +37,7 @@ module.exports = {
     "unicorn/prevent-abbreviations": "off",
     "unicorn/explicit-length-check": "off",
     "unicorn/no-reduce": "off",
+    "no-console": "error",
     "unicorn/consistent-function-scoping": "off",
     "lines-between-class-members": [
       "error",

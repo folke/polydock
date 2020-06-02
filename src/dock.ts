@@ -42,7 +42,7 @@ export class Dock {
         if (!this.items.has(xid)) {
           window.connect("geometry-changed", () => this.autoHide())
           changes++
-          console.log(`+ ${window.get_class_instance_name()}`)
+          log(`+ ${window.get_class_instance_name()}`)
           const item = new DockItem(window, this.horizontal)
           this.toolbar.add(item.button)
           this.items.set(xid, item)
@@ -54,7 +54,7 @@ export class Dock {
       for (const [xid, item] of this.items.entries()) {
         if (!keep.has(xid)) {
           changes++
-          console.log(`- ${item.window.get_class_instance_name()}`)
+          log(`- ${item.window.get_class_instance_name()}`)
           this.items.delete(xid)
           this.toolbar.remove(item.button)
         } else {
@@ -70,8 +70,8 @@ export class Dock {
       if (naturalSize) {
         this.toolbar.get_window()?.resize(naturalSize.width, naturalSize.height)
       }
-      console.log("------")
-      // console.log()
+      log("------")
+      log()
     }
     this.autoHide()
   }
@@ -93,12 +93,12 @@ export class Dock {
       else if (ay1 >= by1 + bh || by1 >= ay1 + ah) show = true
 
       if (show && !window.is_visible()) {
-        console.log("[no-overlap] showing dock")
+        log("[no-overlap] showing dock")
         window.show()
       }
 
       if (!show && window.is_visible()) {
-        console.log(
+        log(
           `[overlap] overlapping with  ${active.get_class_instance_name()}. Hiding dock`
         )
         window.hide()

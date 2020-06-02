@@ -22,7 +22,7 @@ export class DockItem {
             "{window}",
             `${this.window.get_xid()}`
           )
-          console.log(`[unhide] ${unhide}`)
+          log(`[unhide] ${unhide}`)
           GLib.spawn_command_line_async(unhide)
         }
       }
