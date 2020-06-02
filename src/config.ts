@@ -91,11 +91,31 @@ class Config {
         else ini.set_string(group, key, `${value}`)
       }
     }
-    // ini.set_string("appearance", "theme", this.theme)
+
+    ini.set_comment(
+      "appearance",
+      "offsetX",
+      "Addtional offsets to further fine-tune the position of the dock"
+    )
+    ini.set_comment("appearance", "position", "One of top, bottom, left, right")
+    ini.set_comment("appearance", "alignment", "One of start, center, end")
+    ini.set_string("appearance", "theme", this.theme)
     ini.set_comment(
       "appearance",
       "theme",
-      "Full path to a css file, or 'default'"
+      `Full path to a css file, or 'default'.\nSee ${this.theme}`
+    )
+    ini.set_comment(
+      "behaviour",
+      "groupBy",
+      "Specifiy a list of keys to group windows on: class;instance;title;visibility"
+    )
+    ini.set_comment(
+      "icons",
+      // eslint-disable-next-line unicorn/no-null
+      null,
+      `Rules for custom icons matching the class::instance of windows
+icon-name=string to be part of class::instance`
     )
     return ini.to_data()[0]
   }
