@@ -7,13 +7,21 @@ import config from "./config"
 
 export class DockItem {
   button = new Gtk.ToolButton()
+  name: string
 
   constructor(public window: Wnck.Window, public horizontal: boolean) {
+    this.name = window.get_class_instance_name()
     this.update()
+
     this.window.connect("icon-changed", () => {
       this.updateIcon()
       this.button.show_all()
     })
+
+    this.window.connect("state-changed", (_window, _changes, _newState) => {
+      this.setClass("hidden", this.isHidden())
+    })
+
     this.button.connect("clicked", () => {
       const timestamp = new Date().getTime() / 1000
       if (this.isHidden()) {
@@ -75,7 +83,11 @@ export class DockItem {
 
   update() {
     this.updateIcon()
-    this.button.set_tooltip_text(this.window.get_name())
+    this.setClass("hidden", this.isHidden())
+    const tooltip = `<b>${this.window
+      .get_workspace()
+      .get_name()}: ${this.window.get_class_group_name()}</b>\n${this.window.get_name()}`
+    this.button.set_tooltip_markup(tooltip)
   }
 
   setActive(value = true) {
