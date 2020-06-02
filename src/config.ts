@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as GLib from "./types/GLib-2.0"
-import { fileExists } from "./util"
+import { fileExists, resolve } from "./util"
 
 const defaults = {
   appearance: {
@@ -29,8 +29,8 @@ class Config {
   constructor() {
     this.settings = { ...defaults }
     this.path = GLib.path_get_dirname(imports.system.programInvocationName)
-    this.path = GLib.path_get_dirname(this.path)
-    this.theme = `${this.path}/config/theme.css`
+    this.path = resolve(GLib.path_get_dirname(this.path))
+    this.theme = resolve(`${this.path}/config/theme.css`)
     this.update()
   }
 
@@ -40,11 +40,13 @@ class Config {
     if (fileExists(this.settings.appearance.theme)) {
       this.theme = this.settings.appearance.theme
     }
+    log(`[theme] ${this.theme}`)
   }
 
   load(file: string): boolean {
+    file = resolve(file)
     if (!fileExists(file)) return false
-    log(`[settings] loading ${file}`)
+    log(`[settings] ${file}`)
     this.file = file
     const ini = GLib.KeyFile.new()
     ini.load_from_file(file, GLib.KeyFileFlags.KEEP_COMMENTS)
@@ -82,11 +84,29 @@ class Config {
         ini.set_string(group, key, `${value}`)
       }
     }
-    log(ini.to_data()[0])
+    // ini.set_string("appearance", "theme", this.theme)
+    ini.set_comment(
+      "appearance",
+      "theme",
+      "Full path to a css file, or 'default'"
+    )
+    return ini.to_data()[0]
   }
+}
+
+if (ARGV.includes("--help") || ARGV.includes("-h")) {
+  print(`usage: polydock
+--dump-config
+  Prints the current config. Change in ~/.config/polydock/settings.ini`)
+  imports.system.exit(0)
 }
 
 const config = new Config()
 config.dump()
+
+if (ARGV.includes("--dump-config")) {
+  print(config.dump())
+  imports.system.exit(0)
+}
 
 export default config

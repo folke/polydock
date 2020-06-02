@@ -32,3 +32,17 @@ export function fileExists(file: string) {
     !GLib.file_test(file, GLib.FileTest.IS_DIR)
   )
 }
+
+export function resolve(path: string) {
+  let parts: string[] = []
+  for (const p of path.split("/")) {
+    if (p === ".") {
+      if (parts.length) continue
+      parts = GLib.get_current_dir().split("/")
+    } else if (p == "..") parts.pop()
+    else if (p == "~") {
+      parts = GLib.get_home_dir().split("/")
+    } else parts.push(p)
+  }
+  return parts.join("/")
+}
