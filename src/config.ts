@@ -2,6 +2,8 @@
 import * as GLib from "./types/GLib-2.0"
 import { fileExists, resolve } from "./util"
 
+export type WindowGrouping = "class" | "instance" | "title" | "visibility"
+
 const defaults = {
   appearance: {
     position: "top" as "top" | "bottom" | "left" | "right",
@@ -12,9 +14,10 @@ const defaults = {
     theme: "default",
   },
   behaviour: {
+    groupBy: ["instance", "visibility"] as WindowGrouping[],
     activeWorkspaceOnly: false,
     showHidden: true,
-    showVisible: false,
+    showVisible: true,
     unhideCommand: "bspc node {window} -g hidden=off -f",
   },
   icons: {} as Record<string, string>,
@@ -63,7 +66,10 @@ class Config {
 
         const data = ini.get_value(group, key)
         if (data) {
-          if (typeof value == "boolean")
+          if (Array.isArray(value)) {
+            // @ts-ignore
+            this.settings[group][key] = ini.get_string_list(group, key)
+          } else if (typeof value == "boolean")
             // @ts-ignore
             this.settings[group][key] = ini.get_boolean(group, key)
           else if (typeof value == "number")
@@ -81,7 +87,8 @@ class Config {
     const ini = GLib.KeyFile.new()
     for (const [group, items] of Object.entries(this.settings)) {
       for (const [key, value] of Object.entries(items)) {
-        ini.set_string(group, key, `${value}`)
+        if (Array.isArray(value)) ini.set_string_list(group, key, value)
+        else ini.set_string(group, key, `${value}`)
       }
     }
     // ini.set_string("appearance", "theme", this.theme)

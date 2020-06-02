@@ -3,11 +3,12 @@ import * as Wnck from "./types/Wnck-3.0"
 import * as GdkPixbuf from "./types/GdkPixbuf-2.0"
 import * as GLib from "./types/GLib-2.0"
 
-import config from "./config"
+import config, { WindowGrouping } from "./config"
 
 export class DockItem {
   button = new Gtk.ToolButton()
   name: string
+  tooltip = ""
 
   constructor(public window: Wnck.Window, public horizontal: boolean) {
     this.name = window.get_class_instance_name()
@@ -22,27 +23,52 @@ export class DockItem {
       this.setClass("hidden", this.isHidden())
     })
 
-    this.button.connect("clicked", () => {
-      const timestamp = new Date().getTime() / 1000
-      if (this.isHidden()) {
-        if (config.settings.behaviour.unhideCommand) {
-          const unhide = config.settings.behaviour.unhideCommand.replace(
-            "{window}",
-            `${this.window.get_xid()}`
-          )
-          log(`[unhide] ${unhide}`)
-          GLib.spawn_command_line_async(unhide)
-        }
-      }
-      this.window.activate(timestamp)
-    })
+    this.button.connect("clicked", () => this.activate())
   }
 
-  isHidden() {
+  getGroupWindows() {
+    const group = this.getGroupKey()
+    return this.window
+      .get_screen()
+      .get_windows()
+      .filter((x) => this.getGroupKey(x) == group)
+  }
+
+  activate() {
+    const activeId = this.window.get_screen().get_active_window()?.get_xid()
+    const group = this.getGroupWindows()
+
+    // Cycle though existing windows, if active window is part of group
+    for (let g = 0; g < group.length; g++) {
+      if (group[g].get_xid() == activeId) {
+        if (g === group.length - 1) {
+          this._activate(group[0])
+        } else this._activate(group[g + 1])
+        return
+      }
+    }
+    this._activate()
+  }
+
+  _activate(window = this.window) {
+    const timestamp = new Date().getTime() / 1000
+    if (this.isHidden(window)) {
+      if (config.settings.behaviour.unhideCommand) {
+        const unhide = config.settings.behaviour.unhideCommand.replace(
+          "{window}",
+          `${window.get_xid()}`
+        )
+        log(`[unhide] ${unhide}`)
+        GLib.spawn_command_line_async(unhide)
+      }
+    }
+    window.activate(timestamp)
+  }
+
+  isHidden(window = this.window) {
     return (
-      this.window.is_minimized() ||
-      (this.window.get_state() & Wnck.WindowState.HIDDEN) ===
-        Wnck.WindowState.HIDDEN
+      window.is_minimized() ||
+      (window.get_state() & Wnck.WindowState.HIDDEN) === Wnck.WindowState.HIDDEN
     )
   }
 
@@ -84,10 +110,16 @@ export class DockItem {
   update() {
     this.updateIcon()
     this.setClass("hidden", this.isHidden())
-    const tooltip = `<b>${this.window
+    this.addTooltipInfo(this.window, true)
+  }
+
+  addTooltipInfo(window: Wnck.Window, clear = false) {
+    if (clear) this.tooltip = ""
+    if (this.tooltip.length) this.tooltip += "\n\n"
+    this.tooltip += `<b>${window
       .get_workspace()
-      .get_name()}: ${this.window.get_class_group_name()}</b>\n${this.window.get_name()}`
-    this.button.set_tooltip_markup(tooltip)
+      .get_name()}: ${window.get_class_group_name()}</b>\n${window.get_name()}`
+    this.button.set_tooltip_markup(this.tooltip)
   }
 
   setActive(value = true) {
@@ -111,5 +143,26 @@ export class DockItem {
 
   removeClass(klass: string) {
     this.button.get_style_context().remove_class(klass)
+  }
+
+  getGroupKeyValue(window: Wnck.Window, groupBy: WindowGrouping) {
+    switch (groupBy) {
+      case "class":
+        return window.get_class_group_name()
+      case "instance":
+        return window.get_class_instance_name()
+      case "title":
+        return window.get_name()
+      case "visibility":
+        return `hidden:${this.isHidden(window)}`
+    }
+  }
+
+  getGroupKey(window = this.window) {
+    const groupBy = config.settings.behaviour.groupBy
+
+    if (!groupBy.length) return false
+
+    return groupBy.map((g) => this.getGroupKeyValue(window, g)).join(".")
   }
 }

@@ -1,6 +1,5 @@
-import { DockItem } from "./dock-item"
 import config from "./config"
-
+import { DockItem } from "./dock-item"
 import * as Gtk from "./types/Gtk-3.0"
 import * as Wnck from "./types/Wnck-3.0"
 
@@ -74,7 +73,9 @@ export class Dock {
 
     // Update window state
     const workspace = this.screen.get_active_workspace()
+    const groups = new Map<string, DockItem>()
     for (const item of this.items.values()) {
+      const groupKey = item.getGroupKey()
       let visible = true
       if (
         config.settings.behaviour.activeWorkspaceOnly &&
@@ -85,6 +86,17 @@ export class Dock {
         visible = false
       if (!config.settings.behaviour.showVisible && !item.isHidden())
         visible = false
+
+      if (groupKey && groups.has(groupKey)) {
+        visible = false
+        groups.get(groupKey)?.addTooltipInfo(item.window)
+      }
+
+      if (visible && groupKey && !groups.has(groupKey)) {
+        groups.set(groupKey, item)
+        item.addTooltipInfo(item.window, true)
+      }
+
       if (visible) item.button.show_all()
       else item.button.hide()
     }
