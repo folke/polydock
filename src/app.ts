@@ -15,6 +15,7 @@ export class App {
     this.window = win
 
     win.set_wmclass("polydock", "Polydock")
+    win.get_style_context().add_class("top")
     win.set_decorated(false)
     win.set_type_hint(Gdk.WindowTypeHint.DOCK)
     win.stick()

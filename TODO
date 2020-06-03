@@ -1,8 +1,5 @@
 
 Todo:
-  ☐ Hide Dock when no toolbar windows
-  ☐ Check for segfaults. Possibly write auto restart script
   ☐ Check why dock sometimes doesn't render initially
   When cycling though windows, jump to the ones in the current workspace first
-  Wrong geometry when initially loaded in Xorg
   Clicking app to activate feels slow. probably animations etc

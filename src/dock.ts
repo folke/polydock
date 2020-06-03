@@ -12,6 +12,8 @@ export class Dock {
     const screen = Wnck.Screen.get_default()
     if (!screen) throw new Error("No screens detected!")
     this.screen = screen
+    this.toolbar.set_name("dock")
+    this.toolbar.get_style_context().add_class("dock")
     this.toolbar.set_show_arrow(false)
     this.toolbar.set_orientation(
       horizontal ? Gtk.Orientation.HORIZONTAL : Gtk.Orientation.VERTICAL
@@ -69,7 +71,7 @@ export class Dock {
     const active = this.screen.get_active_window()?.get_xid() ?? undefined
     let buttonCount = 0
     for (const item of this.items.values()) {
-      item.setClass("active-window", active == item.window.get_xid())
+      item.setClass("active", active == item.window.get_xid())
       const groupKey = item.getGroupKey()
       let visible = true
       if (

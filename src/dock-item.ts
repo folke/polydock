@@ -18,7 +18,6 @@ export class DockItem {
     this.setClass("dock-item")
 
     const eventBox = new Gtk.EventBox()
-    eventBox.set_name("foobar")
     eventBox.add(this.iconWidget)
     eventBox.set_events(
       Gdk.EventMask.BUTTON_PRESS_MASK & Gdk.EventMask.ENTER_NOTIFY_MASK
@@ -181,16 +180,16 @@ export class DockItem {
   }
 
   setActive(value = true) {
-    if (value) this.addClass("active-window")
-    else this.removeClass("active-window")
+    if (value) this.addClass("active")
+    else this.removeClass("active")
   }
 
   addClass(klass: string) {
-    this.button.get_style_context().add_class(klass)
+    this.iconWidget.get_style_context().add_class(klass)
   }
 
   toggleClass(klass: string) {
-    this.button.get_style_context().has_class(klass)
+    this.iconWidget.get_style_context().has_class(klass)
       ? this.removeClass(klass)
       : this.addClass(klass)
   }
@@ -200,7 +199,7 @@ export class DockItem {
   }
 
   removeClass(klass: string) {
-    this.button.get_style_context().remove_class(klass)
+    this.iconWidget.get_style_context().remove_class(klass)
   }
 
   getGroupKeyValue(window: Wnck.Window, groupBy: WindowGrouping) {

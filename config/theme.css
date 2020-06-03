@@ -1,5 +1,9 @@
 /* Reset CSS */
-* {
+.top,
+.dock,
+.dock > toolitem,
+.dock > toolitem > widget,
+.dock-item {
   background-color: transparent;
   padding: 0;
   margin: 0;
@@ -8,53 +12,48 @@
   outline: none;
 }
 
-toolbar {
+.dock {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-toolbar.horizontal {
+.dock.horizontal {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-toolbar.vertical {
+.dock.vertical {
   padding-top: 12px;
   padding-bottom: 12px;
 }
 
-toolbutton button {
+.dock-item {
   padding: 5px 8px;
   border: none;
   transition: 0.2s linear;
   transition-property: all;
-}
-
-toolbutton.hidden button {
-}
-toolbutton.hidden button image {
-  opacity: 0.2;
-}
-
-toolbar.vertical toolbutton button {
-  padding: 8px 5px;
-}
-
-toolbutton image {
   -gtk-icon-shadow: 1px 2px alpha(black, 0.2);
 }
 
-toolbutton button:hover {
+.dock-item.hidden {
+  opacity: 0.2;
+}
+
+.dock.vertical .dock-item {
+  padding: 8px 5px;
+}
+
+.dock-item:hover {
   background-color: rgba(255, 255, 255, 0.4);
   border: none;
 }
 
-toolbar.horizontal toolbutton.active-window button {
+.dock.horizontal .dock-item.active {
   /* margin-bottom: -4px; */
   border-bottom: 2px solid white;
   padding-bottom: 2px;
 }
 
-toolbar.vertical toolbutton.active-window button {
+.dock.vertical .dock-item.active {
   /* margin-bottom: -4px; */
   border-right: 2px solid white;
   padding-right: 2px;
