@@ -3,3 +3,4 @@ lib
 .eslintcache
 .ultra.cache.json
 dist
+.github.sh

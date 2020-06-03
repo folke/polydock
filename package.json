@@ -1,6 +1,6 @@
 {
   "name": "polydock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "author": "",
@@ -25,6 +25,18 @@
   "release-it": {
     "npm": {
       "publish": false
+    },
+    "git": {
+      "commitMessage": "chore(release): ${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "conventionalcommits",
+        "infile": "CHANGELOG.md"
+      }
     }
   },
   "scripts": {
@@ -46,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^1.1.4",
     "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-replace": "^2.3.2",
     "@rollup/plugin-sucrase": "^3.0.2",
