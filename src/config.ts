@@ -20,7 +20,13 @@ const defaults = {
     showVisible: true,
     unhideCommand: "bspc node {window} -g hidden=off -f",
   },
-  icons: {} as Record<string, string>,
+  icons: {
+    "google-agenda": "calendar.google.com",
+    gmail: "mail.google.com",
+    keep: "keep.google.com",
+    messengerfordesktop: "www.messenger.com",
+    whatsapp: "whatsapp",
+  } as Record<string, string>,
 }
 
 export type Settings = typeof defaults
