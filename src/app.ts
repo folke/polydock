@@ -1,8 +1,7 @@
-import { Dock } from "./dock"
-
-import * as Gtk from "./types/Gtk-3.0"
-import * as Gdk from "./types/Gdk-3.0"
 import config from "./config"
+import { Dock } from "./dock"
+import Gdk from "./types/Gdk-3.0"
+import Gtk from "./types/Gtk-3.0"
 
 export class App {
   window: Gtk.Window
@@ -135,7 +134,7 @@ export class App {
 
   autoHide() {
     const active = this.window.get_screen().get_active_window()
-    if (active && window) {
+    if (active && this.window) {
       const [ax1, ay1, aw, ah] = active.get_geometry()
       const [bx1, by1] = this.window.get_position()
       const [bw, bh] = this.window.get_size()
