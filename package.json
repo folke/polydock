@@ -22,6 +22,11 @@
       "prepare-commit-msg": "npx --no-install devmoji -e --lint"
     }
   },
+  "release-it": {
+    "npm": {
+      "publish": false
+    }
+  },
   "scripts": {
     "prebuild": "npm run lint",
     "build:app": "npx rollup -c rollup.config.js",
@@ -62,6 +67,7 @@
     "eslint-plugin-unicorn": "20.1.0",
     "husky": "4.2.5",
     "prettier": "^2.0.5",
+    "release-it": "^13.6.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.12.1",
     "rollup-plugin-terser": "^6.1.0",
