@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import GLib from "./types/GLib-2.0"
-import { fileExists, resolve } from "./util"
+import { fileExists, resolve, realpath } from "./util"
 
 export type WindowGrouping = "class" | "instance" | "title" | "visibility"
 
@@ -39,7 +39,9 @@ class Config {
 
   constructor() {
     this.settings = { ...defaults }
-    this.path = GLib.path_get_dirname(imports.system.programInvocationName)
+    this.path = GLib.path_get_dirname(
+      realpath(imports.system.programInvocationName)
+    )
     this.path = resolve(GLib.path_get_dirname(this.path))
     this.theme = resolve(`${this.path}/config/themes/default.css`)
     this.update()
@@ -117,7 +119,7 @@ class Config {
     ini.set_comment(
       "appearance",
       "theme",
-      `Full path to a css file, or 'default'.\nSee ${this.theme}`
+      `Full path to a css file, or 'default'.\nSee config/themes/default.css`
     )
     ini.set_comment(
       "behaviour",

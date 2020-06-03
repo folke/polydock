@@ -46,3 +46,10 @@ export function resolve(path: string) {
   }
   return parts.join("/")
 }
+
+export function realpath(path: string) {
+  while (GLib.file_test(path, GLib.FileTest.IS_SYMLINK)) {
+    path = GLib.file_read_link(path)
+  }
+  return path
+}
