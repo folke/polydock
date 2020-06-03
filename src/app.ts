@@ -29,15 +29,17 @@ export class App {
     this.loadStyles()
 
     win.connect("size-allocate", () => this.updatePosition())
+    win.connect("screen-changed", () => this.updateSize())
 
     this.dock = new Dock(
       ["top", "bottom"].includes(config.settings.appearance.position)
     )
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     win.add(this.dock.toolbar)
     this.dock.toolbar.connect("check-resize", () => this.updateSize())
-    win.show()
+    this.updateSize()
   }
 
   loadStyles() {
@@ -63,6 +65,12 @@ export class App {
   }
 
   updateSize() {
+    // Hide window when dock is hidden
+    if (this.dock.toolbar.get_visible()) this.window.show()
+    else {
+      this.window.hide()
+      return
+    }
     // Resize the window to fit the toolbar
     const [, naturalSize] = this.dock.toolbar.get_preferred_size()
     const size = this.window.get_size()

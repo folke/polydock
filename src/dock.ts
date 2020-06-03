@@ -67,6 +67,7 @@ export class Dock {
     const workspace = this.screen.get_active_workspace()
     const groups = new Map<string, DockItem>()
     const active = this.screen.get_active_window()?.get_xid() ?? undefined
+    let buttonCount = 0
     for (const item of this.items.values()) {
       item.setClass("active-window", active == item.window.get_xid())
       const groupKey = item.getGroupKey()
@@ -93,11 +94,20 @@ export class Dock {
         item.addTooltipInfo(item.window, true)
       }
 
-      if (visible) item.button.show_all()
-      else item.button.hide()
+      if (visible) {
+        item.button.show_all()
+        buttonCount++
+      } else item.button.hide()
     }
 
+    log(`[update] - ${event} [${buttonCount}]`)
+    if (buttonCount) {
+      log("[toobar] show")
+      this.toolbar.show()
+    } else {
+      log("[toobar] hide")
+      this.toolbar.hide()
+    }
     this.toolbar.check_resize()
-    log(`[update] - ${event}`)
   }
 }
