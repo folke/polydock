@@ -3,7 +3,7 @@
 me=$(realpath "$0")
 dist=$(realpath $(dirname "$me")/../dist)
 
-echo "startings"
+echo "starting"
 exitCode=0
 while true; do
   gjs "$dist/polydock.js" $@

@@ -4,6 +4,7 @@ import replace from "@rollup/plugin-replace"
 // import { terser } from "rollup-plugin-terser"
 import path from "path"
 import { chmodSync } from "fs"
+import copy from "rollup-plugin-copy"
 
 function executable() {
   let file
@@ -23,7 +24,7 @@ const externals = new Map()
 export default {
   input: "src/index.ts",
   output: {
-    file: "dist/polydock.js",
+    file: "dist/bin/polydock",
     banner: () => {
       let ret = `#!/usr/bin/gjs`
       for (const [lib, version] of externals.entries()) {
@@ -60,5 +61,8 @@ export default {
     }),
     // terser(),
     executable(),
+    copy({
+      targets: [{ src: "config/*", dest: "dist/config/" }],
+    }),
   ],
 }

@@ -30,7 +30,10 @@
       "commitMessage": "chore(release): ${version}"
     },
     "github": {
-      "release": true
+      "release": true,
+      "assets": [
+        "dist/*.zip"
+      ]
     },
     "plugins": {
       "@release-it/conventional-changelog": {
@@ -40,12 +43,13 @@
     }
   },
   "scripts": {
-    "prebuild": "npm run lint",
+    "prebuild": "npm run clean && npm run lint",
     "build:app": "npx rollup -c rollup.config.js",
     "build": "npm run build:app",
     "lint:ts": "npx tsc --noEmit",
     "lint:eslint": "npx eslint src/*.ts --cache",
     "lint": "npm run lint:eslint && npm run lint:ts",
+    "postbuild": "./zipit.sh",
     "clean": "npx rimraf lib coverage *.log build 0x dist",
     "predebug": "npm run build:app",
     "debug": "GTK_DEBUG=interactive gjs dist/polydock.js"
@@ -53,7 +57,6 @@
   "ultra": {
     "concurrent": [
       "lint",
-      "prebuild",
       "ultra"
     ]
   },
@@ -82,6 +85,7 @@
     "release-it": "^13.6.2",
     "rimraf": "^3.0.2",
     "rollup": "^2.12.1",
+    "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-terser": "^6.1.0",
     "typescript": "^3.9.3",
     "typesync": "^0.7.0"

@@ -41,15 +41,23 @@ class Config {
     this.settings = { ...defaults }
     this.path = GLib.path_get_dirname(imports.system.programInvocationName)
     this.path = resolve(GLib.path_get_dirname(this.path))
-    this.theme = resolve(`${this.path}/config/theme.css`)
+    this.theme = resolve(`${this.path}/config/themes/default.css`)
     this.update()
   }
 
   update() {
     this.load(`${GLib.get_user_config_dir()}/polydock/settings.ini`) ||
       this.load(`${this.path}/config/settings.ini`)
-    if (fileExists(this.settings.appearance.theme)) {
-      this.theme = this.settings.appearance.theme
+    if (this.file) {
+      this.theme = resolve(
+        `${GLib.path_get_dirname(this.file)}/themes/${
+          this.settings.appearance.theme || "default"
+        }.css`
+      )
+    }
+    if (!fileExists(this.theme)) {
+      log(`Theme file not found! ${this.theme}`)
+      imports.system.exit(1)
     }
     log(`[theme] ${this.theme}`)
   }
@@ -105,7 +113,7 @@ class Config {
     )
     ini.set_comment("appearance", "position", "One of top, bottom, left, right")
     ini.set_comment("appearance", "alignment", "One of start, center, end")
-    ini.set_string("appearance", "theme", this.theme)
+    // ini.set_string("appearance", "theme", this.theme)
     ini.set_comment(
       "appearance",
       "theme",

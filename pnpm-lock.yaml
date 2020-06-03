@@ -5,7 +5,6 @@ devDependencies:
   '@rollup/plugin-sucrase': 3.0.2_rollup@2.12.1
   '@types/eslint': 6.8.1
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/node': 14.0.9
   '@types/prettier': 2.0.1
   '@types/rimraf': 3.0.0
   '@typescript-eslint/eslint-plugin': 3.1.0_0e27ac235d5bbd2b6f9bd0553416eb5e
@@ -24,6 +23,7 @@ devDependencies:
   release-it: 13.6.2
   rimraf: 3.0.2
   rollup: 2.12.1
+  rollup-plugin-copy: 3.3.0
   rollup-plugin-terser: 6.1.0_rollup@2.12.1
   typescript: 3.9.3
   typesync: 0.7.0
@@ -301,6 +301,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==
+  /@types/fs-extra/8.1.1:
+    dependencies:
+      '@types/node': 14.0.9
+    dev: true
+    resolution:
+      integrity: sha512-TcUlBem321DFQzBNuz8p0CLLKp0VvF/XH9E4KHNmgwyp4E3AfgI5cjiIVZWlbfThBop2qxFIh4+LeY6hVWWZ2w==
   /@types/glob/7.1.1:
     dependencies:
       '@types/events': 3.0.0
@@ -868,6 +874,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+  /colorette/1.2.0:
+    dev: true
+    resolution:
+      integrity: sha512-soRSroY+OF/8OdA3PTQXwaDJeMc7TfknKKrxeSCencL2a4+Tx5zhxmmv7hdpCjhKBjehzp8+bwe/T68K0hpIjw==
   /combined-stream/1.0.8:
     dependencies:
       delayed-stream: 1.0.0
@@ -1862,6 +1872,16 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-CKMFDglpbMi6PyN+brwB9Q/GOw0eAnsrEZDgcsH5Krhz5Od/haKHAX0NmQfha2zPPz0JpWzA7GJHGSnvCRLWsg==
+  /fs-extra/8.1.0:
+    dependencies:
+      graceful-fs: 4.2.4
+      jsonfile: 4.0.0
+      universalify: 0.1.2
+    dev: true
+    engines:
+      node: '>=6 <7 || >=8'
+    resolution:
+      integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
   /fs.realpath/1.0.0:
     dev: true
     resolution:
@@ -2008,6 +2028,21 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==
+  /globby/10.0.1:
+    dependencies:
+      '@types/glob': 7.1.1
+      array-union: 2.1.0
+      dir-glob: 3.0.1
+      fast-glob: 3.2.2
+      glob: 7.1.6
+      ignore: 5.1.8
+      merge2: 1.4.1
+      slash: 3.0.0
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-sSs4inE1FB2YQiymcmTv6NWENryABjUNPeWhOvmn4SjtKybglsyPZxFB3U1/+L1bYi0rNZDqCLlHyLYDl1Pq5A==
   /globby/11.0.0:
     dependencies:
       array-union: 2.1.0
@@ -2565,6 +2600,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
+  /jsonfile/4.0.0:
+    dev: true
+    optionalDependencies:
+      graceful-fs: 4.2.4
+    resolution:
+      integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
   /jsonparse/1.3.1:
     dev: true
     engines:
@@ -3801,6 +3842,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
+  /rollup-plugin-copy/3.3.0:
+    dependencies:
+      '@types/fs-extra': 8.1.1
+      colorette: 1.2.0
+      fs-extra: 8.1.0
+      globby: 10.0.1
+      is-plain-object: 3.0.0
+    dev: true
+    engines:
+      node: '>=8.3'
+    resolution:
+      integrity: sha512-euDjCUSBXZa06nqnwCNADbkAcYDfzwowfZQkto9K/TFhiH+QG7I4PUsEMwM9tDgomGWJc//z7KLW8t+tZwxADA==
   /rollup-plugin-terser/6.1.0_rollup@2.12.1:
     dependencies:
       '@babel/code-frame': 7.10.1
@@ -4420,6 +4473,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-B5TPtzZleXyPrUMKCpEHFmVhMN6EhmJYjG5PQna9s7mXeSqGTLap4OpqLl5FCEFUI3UBmllkETwKf/db66Y54Q==
+  /universalify/0.1.2:
+    dev: true
+    engines:
+      node: '>= 4.0.0'
+    resolution:
+      integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
   /update-notifier/4.1.0:
     dependencies:
       boxen: 4.2.0
@@ -4595,7 +4654,6 @@ specifiers:
   '@rollup/plugin-sucrase': ^3.0.2
   '@types/eslint': ^6.8.1
   '@types/eslint-plugin-prettier': 3.1.0
-  '@types/node': ^14.0.9
   '@types/prettier': ^2.0.1
   '@types/rimraf': ^3.0.0
   '@typescript-eslint/eslint-plugin': 3.1.0
@@ -4614,6 +4672,7 @@ specifiers:
   release-it: ^13.6.2
   rimraf: ^3.0.2
   rollup: ^2.12.1
+  rollup-plugin-copy: ^3.3.0
   rollup-plugin-terser: ^6.1.0
   typescript: ^3.9.3
   typesync: ^0.7.0
