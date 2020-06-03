@@ -1,7 +1,7 @@
 import config from "./config"
 import { DockItem } from "./dock-item"
-import * as Gtk from "./types/Gtk-3.0"
-import * as Wnck from "./types/Wnck-3.0"
+import Gtk from "./types/Gtk-3.0"
+import Wnck from "./types/Wnck-3.0"
 
 export class Dock {
   items = new Map<number, DockItem>()

@@ -27,6 +27,10 @@ module.exports = {
   },
   ignorePatterns: ["/src/types/*.js", "/src/types/*.ts", "/dist/**/*.js"],
   rules: {
+    "import/default": "off",
+    "import/no-namespace": "error",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
     "array-callback-return": "error",
     "prefer-template": "warn",
     "prefer-promise-reject-errors": "error",

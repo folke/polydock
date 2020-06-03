@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import * as GLib from "./types/GLib-2.0"
+import GLib from "./types/GLib-2.0"
 import { fileExists, resolve } from "./util"
 
 export type WindowGrouping = "class" | "instance" | "title" | "visibility"

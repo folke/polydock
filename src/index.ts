@@ -1,7 +1,7 @@
 import { App } from "./app"
 
-import * as Gtk from "./types/Gtk-3.0"
-import * as Wnck from "./types/Wnck-3.0"
+import Gtk from "./types/Gtk-3.0"
+import Wnck from "./types/Wnck-3.0"
 
 log(imports.system.programInvocationName)
 Wnck.set_client_type(Wnck.ClientType.PAGER)

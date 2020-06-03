@@ -1,4 +1,4 @@
-import * as GObject from "./types/GObject-2.0"
+import { Object } from "./types/GObject-2.0"
 
 declare global {
   const ARGV: string[]

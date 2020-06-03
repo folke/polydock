@@ -1,9 +1,10 @@
-import * as Gtk from "./types/Gtk-3.0"
-import * as Wnck from "./types/Wnck-3.0"
-import * as GdkPixbuf from "./types/GdkPixbuf-2.0"
-import * as GLib from "./types/GLib-2.0"
-
+/* eslint-disable unicorn/no-null */
 import config, { WindowGrouping } from "./config"
+import Gdk from "./types/Gdk-3.0"
+import GdkPixbuf from "./types/GdkPixbuf-2.0"
+import GLib from "./types/GLib-2.0"
+import Gtk from "./types/Gtk-3.0"
+import Wnck from "./types/Wnck-3.0"
 
 export class DockItem {
   button = new Gtk.ToolButton()
