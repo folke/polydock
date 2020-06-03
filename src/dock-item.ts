@@ -10,12 +10,8 @@ export class DockItem {
   name: string
   tooltip = ""
 
-  constructor(
-    public screen: Wnck.Screen,
-    public xid: number,
-    public horizontal: boolean
-  ) {
-    this.name = this.window.get_class_instance_name().slice()
+  constructor(public window: Wnck.Window, public horizontal: boolean) {
+    this.name = this.window.get_class_instance_name()
     this.update()
 
     this.window.connect("icon-changed", () => {
@@ -28,18 +24,6 @@ export class DockItem {
     })
 
     this.button.connect("clicked", () => this.activate())
-  }
-
-  get window() {
-    for (const w of this.screen.get_windows_stacked()) {
-      if (w.get_xid() == this.xid) return w
-    }
-
-    const error = new Error(
-      `Wnck.Window ${this.xid} for ${this.name} no longer exists`
-    )
-    logError(error)
-    throw error
   }
 
   getGroupWindows() {

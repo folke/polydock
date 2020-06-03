@@ -18,24 +18,22 @@ export class Dock {
     )
     this.toolbar.show_all()
     this.screen.force_update()
-    this.update()
-    screen.connect("viewports-changed", () => this.update())
-    screen.connect("active-workspace-changed", () => this.update())
-    screen.connect("active-window-changed", (screen, prev) => {
-      if (prev) this.items.get(prev.get_xid())?.setClass("active-window", false)
-      this.items
-        .get(screen.get_active_window()?.get_xid())
-        ?.setClass("active-window", true)
-      this.update()
+    this.update("constructor")
+    screen.connect("viewports-changed", () => this.update("viewports-changed"))
+    screen.connect("active-workspace-changed", () =>
+      this.update("active-workspace-changed")
+    )
+    screen.connect("active-window-changed", (_screen, prev) => {
+      // HACK: refcount seems wrong for closed windows that were active before
+      if (prev && !prev.get_class_group()) prev.ref()
+      this.update("active-window-changed")
     })
-    screen.connect("window-opened", () => this.update())
-    screen.connect("window-closed", () => this.update())
-
-    // this.toolbar.connect("add", () => this.toolbar.check_resize())
-    // this.toolbar.connect("remove", () => this.toolbar.check_resize())
+    screen.connect("window-opened", () => this.update("window-opened"))
+    screen.connect("window-closed", () => this.update("window-closed"))
   }
 
-  update() {
+  update(event: string) {
+    log(`[update] + ${event}`)
     // this.screen.force_update()
     const windows = this.screen.get_windows()
     if (!windows) return log("No Windows!")
@@ -44,7 +42,7 @@ export class Dock {
     const xids = new Set<number>(windows.map((x) => x.get_xid()))
     for (const [xid, item] of this.items.entries()) {
       if (!xids.has(xid)) {
-        log(`- ${item.name}`)
+        log(`- ${imports.system.refcount(item.window)} ${item.name}`)
         this.items.delete(xid)
         this.toolbar.remove(item.button)
       }
@@ -55,9 +53,11 @@ export class Dock {
       const xid = window.get_xid()
       if (!this.items.has(xid)) {
         window.connect("geometry-changed", () => this.toolbar.check_resize())
-        window.connect("workspace-changed", () => this.update())
-        log(`+ ${window.get_class_instance_name()}`)
-        const item = new DockItem(this.screen, xid, this.horizontal)
+        window.connect("workspace-changed", () =>
+          this.update("workspace-changed")
+        )
+        const item = new DockItem(window, this.horizontal)
+        log(`+ ${imports.system.refcount(item.window)} ${item.name}`)
         this.toolbar.add(item.button)
         this.items.set(xid, item)
       }
@@ -66,7 +66,9 @@ export class Dock {
     // Update window state
     const workspace = this.screen.get_active_workspace()
     const groups = new Map<string, DockItem>()
+    const active = this.screen.get_active_window()?.get_xid() ?? undefined
     for (const item of this.items.values()) {
+      item.setClass("active-window", active == item.window.get_xid())
       const groupKey = item.getGroupKey()
       let visible = true
       if (
@@ -82,6 +84,8 @@ export class Dock {
       if (groupKey && groups.has(groupKey)) {
         visible = false
         groups.get(groupKey)?.addTooltipInfo(item.window)
+        if (active == item.window.get_xid())
+          groups.get(groupKey)?.setActive(true)
       }
 
       if (visible && groupKey && !groups.has(groupKey)) {
@@ -94,5 +98,6 @@ export class Dock {
     }
 
     this.toolbar.check_resize()
+    log(`[update] - ${event}`)
   }
 }
