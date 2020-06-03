@@ -7,24 +7,62 @@ import Gtk from "./types/Gtk-3.0"
 import Wnck from "./types/Wnck-3.0"
 
 export class DockItem {
-  button = new Gtk.ToolButton()
   name: string
-  tooltip = ""
+  button = new Gtk.ToolItem()
+  iconWidget = new Gtk.Image()
+  menu = new Gtk.Menu()
 
   constructor(public window: Wnck.Window, public horizontal: boolean) {
     this.name = this.window.get_class_instance_name()
+
+    this.setClass("dock-item")
+
+    const eventBox = new Gtk.EventBox()
+    eventBox.set_name("foobar")
+    eventBox.add(this.iconWidget)
+    eventBox.set_events(
+      Gdk.EventMask.BUTTON_PRESS_MASK & Gdk.EventMask.ENTER_NOTIFY_MASK
+    )
+    this.button.add(eventBox)
     this.update()
 
     this.window.connect("icon-changed", () => {
       this.updateIcon()
-      this.button.get_icon_widget()?.show_all()
+      this.iconWidget.show_all()
     })
 
     this.window.connect("state-changed", (_window, _changes, _newState) => {
       this.setClass("hidden", this.isHidden())
     })
 
-    this.button.connect("clicked", () => this.activate())
+    // Add hover states
+    eventBox.connect("enter-notify-event", () => {
+      this.iconWidget.set_state_flags(Gtk.StateFlags.PRELIGHT, false)
+    })
+    eventBox.connect("leave-notify-event", () => {
+      this.iconWidget.unset_state_flags(Gtk.StateFlags.PRELIGHT)
+    })
+
+    this.menu.attach_to_widget(this.button, null)
+    eventBox.connect("button-press-event", (_button, event: Gdk.Event) => {
+      if (event.get_event_type() == Gdk.EventType.BUTTON_PRESS) {
+        if (event.get_button()?.[1] == 3) {
+          this.popup()
+        } else if (event.get_button()?.[1] == 1) {
+          this.cycle()
+        }
+      }
+    })
+  }
+
+  popup() {
+    this.menu.show_all()
+    this.menu.popup_at_widget(
+      this.button,
+      Gdk.Gravity.SOUTH,
+      Gdk.Gravity.NORTH,
+      null
+    )
   }
 
   getGroupWindows() {
@@ -35,7 +73,7 @@ export class DockItem {
       .filter((x) => this.getGroupKey(x) == group)
   }
 
-  activate() {
+  cycle() {
     const activeId = this.window.get_screen().get_active_window()?.get_xid()
     const group = this.getGroupWindows()
 
@@ -43,15 +81,15 @@ export class DockItem {
     for (let g = 0; g < group.length; g++) {
       if (group[g].get_xid() == activeId) {
         if (g === group.length - 1) {
-          this._activate(group[0])
-        } else this._activate(group[g + 1])
+          this.activate(group[0])
+        } else this.activate(group[g + 1])
         return
       }
     }
-    this._activate()
+    this.activate()
   }
 
-  _activate(window = this.window) {
+  activate(window = this.window) {
     const timestamp = new Date().getTime() / 1000
     if (this.isHidden(window)) {
       if (config.settings.behaviour.unhideCommand) {
@@ -105,22 +143,41 @@ export class DockItem {
           GdkPixbuf.InterpType.BILINEAR
         )
     }
-    this.button.set_icon_widget(Gtk.Image.new_from_pixbuf(icon))
+    this.iconWidget.set_from_pixbuf(icon)
+    this.iconWidget.show()
   }
 
   update() {
     this.updateIcon()
     this.setClass("hidden", this.isHidden())
-    this.addTooltipInfo(this.window, true)
+    this.addMenuItem(this, true)
   }
 
-  addTooltipInfo(window: Wnck.Window, clear = false) {
-    if (clear) this.tooltip = ""
-    if (this.tooltip.length) this.tooltip += "\n\n"
-    this.tooltip += `<b>${window
+  addMenuItem(item: DockItem, clear = false) {
+    let label = `${item.window
       .get_workspace()
-      .get_name()}: ${window.get_class_group_name()}</b>\n${window.get_name()}`
-    this.button.set_tooltip_markup(this.tooltip)
+      .get_name()}: ${item.window.get_name()}`
+    if (label.length > 60) label = `${label.slice(0, 60)}...`
+
+    if (clear) {
+      this.menu.get_children().forEach((c) => this.menu.remove(c))
+    }
+    const menuItem = Gtk.ImageMenuItem.new_with_label(label)
+    menuItem.set_always_show_image(true)
+    menuItem.set_image(
+      Gtk.Image.new_from_pixbuf(
+        item.iconWidget
+          .get_pixbuf()
+          ?.copy()
+          ?.scale_simple(24, 24, GdkPixbuf.InterpType.BILINEAR)
+      )
+    )
+    menuItem.connect("activate", () => {
+      item.activate()
+    })
+    this.menu.append(menuItem)
+
+    this.iconWidget.set_tooltip_text(label)
   }
 
   setActive(value = true) {
@@ -138,7 +195,7 @@ export class DockItem {
       : this.addClass(klass)
   }
 
-  setClass(klass: string, yeasNo: boolean) {
+  setClass(klass: string, yeasNo = true) {
     yeasNo ? this.addClass(klass) : this.removeClass(klass)
   }
 

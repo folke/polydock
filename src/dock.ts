@@ -84,14 +84,14 @@ export class Dock {
 
       if (groupKey && groups.has(groupKey)) {
         visible = false
-        groups.get(groupKey)?.addTooltipInfo(item.window)
+        groups.get(groupKey)?.addMenuItem(item)
         if (active == item.window.get_xid())
           groups.get(groupKey)?.setActive(true)
       }
 
       if (visible && groupKey && !groups.has(groupKey)) {
         groups.set(groupKey, item)
-        item.addTooltipInfo(item.window, true)
+        item.addMenuItem(item, true)
       }
 
       if (visible) {
