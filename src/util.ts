@@ -1,4 +1,4 @@
-import * as GLib from "./types/GLib-2.0"
+import GLib from "./types/GLib-2.0"
 
 // /**
 //  * https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/setInterval
