@@ -1,5 +1,5 @@
 
 Todo:
-  ☐ Check why dock sometimes doesn't render initially
   When cycling though windows, jump to the ones in the current workspace first
-  Clicking app to activate feels slow. probably animations etc
+configure icon set(s) to use
+workspace for groupBy?
