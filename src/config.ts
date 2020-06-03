@@ -15,7 +15,7 @@ const defaults = {
   },
   behaviour: {
     groupBy: ["instance", "visibility"] as WindowGrouping[],
-    activeWorkspaceOnly: true,
+    activeWorkspaceOnly: false,
     showHidden: true,
     showVisible: true,
     unhideCommand: "bspc node {window} -g hidden=off -f",
