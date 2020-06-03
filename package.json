@@ -47,8 +47,8 @@
     "lint:eslint": "npx eslint src/*.ts --cache",
     "lint": "npm run lint:eslint && npm run lint:ts",
     "clean": "npx rimraf lib coverage *.log build 0x dist",
-    "run": "gjs -I dist dist/index.js",
-    "debug": "GTK_DEBUG=interactive gjs -I dist dist/index.js"
+    "predebug": "npm run build:app",
+    "debug": "GTK_DEBUG=interactive gjs dist/polydock.js"
   },
   "ultra": {
     "concurrent": [
@@ -64,7 +64,6 @@
     "@rollup/plugin-sucrase": "^3.0.2",
     "@types/eslint": "^6.8.1",
     "@types/eslint-plugin-prettier": "3.1.0",
-    "@types/node": "^14.0.9",
     "@types/prettier": "^2.0.1",
     "@types/rimraf": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "3.1.0",
