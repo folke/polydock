@@ -1,3 +1,5 @@
+### [1.1.1](https://github.com/folke/polydock/compare/1.1.0...1.1.1) (2020-06-03)
+
 ## 1.1.0 (2020-06-03)
 
 
