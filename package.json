@@ -40,7 +40,9 @@
     "github": {
       "release": true,
       "assets": [
-        "dist/*.zip"
+        "dist/*.zip",
+        "dist/config/settings.ini",
+        "dist/config/themes/default.css"
       ]
     },
     "plugins": {
