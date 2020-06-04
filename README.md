@@ -96,6 +96,24 @@ messengerfordesktop=www.messenger.com
 whatsapp=whatsapp
 ```
 
+### Themes
+
+**Polydock** can be fully themed using Gtk+ CSS.
+
+To create a new theme:
+
+```shell
+# Copy the default theme
+$ cp config/themes/default.css ~/.config/polydock/themes/awesome.css
+```
+
+Then hack away and set your custom theme `~/.config/polydock/settings.ini`
+
+```ini
+[appearance]
+theme=awesome
+```
+
 ## 🔥 Building from source
 
 **Polydock** is written in Typescript and needs some nodejs packages to transform the source into code that works with [GJS](https://gitlab.gnome.org/GNOME/gjs/-/blob/master/doc/Home.md)
