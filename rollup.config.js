@@ -1,7 +1,7 @@
 import sucrase from "@rollup/plugin-sucrase"
 import resolve from "@rollup/plugin-node-resolve"
 import replace from "@rollup/plugin-replace"
-// import { terser } from "rollup-plugin-terser"
+import { terser } from "rollup-plugin-terser"
 import path from "path"
 import { chmodSync } from "fs"
 import copy from "rollup-plugin-copy"

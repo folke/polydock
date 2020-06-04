@@ -40,6 +40,7 @@ export let PolydockApp = class extends Gtk.Application {
     if (options.contains("version")) {
       print("__version__")
     } else if (options.contains("dump-config")) {
+      config.verbose = false
       config.update()
       print(config.dump())
     } else return -1

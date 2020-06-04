@@ -36,6 +36,8 @@ class Config {
   settings: Settings
   theme: string
   file?: string
+  verbose = true
+  themePath: string[] = []
 
   constructor() {
     this.settings = { ...defaults }
@@ -43,30 +45,36 @@ class Config {
       realpath(imports.system.programInvocationName)
     )
     this.path = resolve(GLib.path_get_dirname(this.path))
+    this.themePath.push(`${this.path}/config/themes`)
     this.theme = resolve(`${this.path}/config/themes/default.css`)
   }
 
   update() {
     this.load(`${GLib.get_user_config_dir()}/polydock/settings.ini`) ||
       this.load(`${this.path}/config/settings.ini`)
-    if (this.file) {
-      this.theme = resolve(
-        `${GLib.path_get_dirname(this.file)}/themes/${
-          this.settings.appearance.theme || "default"
-        }.css`
+    if (this.file)
+      this.themePath.unshift(
+        resolve(`${GLib.path_get_dirname(this.file)}/themes`)
       )
+
+    for (const p of this.themePath) {
+      this.theme = resolve(
+        `${p}/${this.settings.appearance.theme || "default"}.css`
+      )
+      if (fileExists(this.theme)) break
     }
+
     if (!fileExists(this.theme)) {
       log(`Theme file not found! ${this.theme}`)
       imports.system.exit(1)
     }
-    log(`[theme] ${this.theme}`)
+    this.verbose && log(`[theme] ${this.theme}`)
   }
 
   load(file: string): boolean {
     file = resolve(file)
     if (!fileExists(file)) return false
-    log(`[settings] ${file}`)
+    this.verbose && log(`[settings] ${file}`)
     this.file = file
     const ini = GLib.KeyFile.new()
     ini.load_from_file(file, GLib.KeyFileFlags.KEEP_COMMENTS)
