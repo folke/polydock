@@ -25,6 +25,7 @@ I recently started using [bspwm](https://github.com/baskerville/bspwm) as my mai
 Make sure you have the following libraries on your system:
 
 * `gtk3`
+* `gjs`
 * `libwnck3`
 * `gdk-pixbuf2`
 

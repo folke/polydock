@@ -5,6 +5,7 @@ import replace from "@rollup/plugin-replace"
 import path from "path"
 import { chmodSync } from "fs"
 import copy from "rollup-plugin-copy"
+import { version } from "./package.json"
 
 function executable() {
   let file
@@ -26,7 +27,7 @@ export default {
   output: {
     file: "dist/bin/polydock",
     banner: () => {
-      let ret = `#!/usr/bin/gjs`
+      let ret = `#!/usr/bin/gjs\n`
       for (const [lib, version] of externals.entries()) {
         ret += `\nimports.gi.versions.${lib} = "${version}"`
       }
@@ -50,7 +51,10 @@ export default {
     return false
   },
   plugins: [
-    replace({ "console.log": "log" }),
+    replace({
+      "console.log": "log",
+      __version__: version,
+    }),
     resolve({
       extensions: [".js", ".ts"],
     }),

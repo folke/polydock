@@ -52,7 +52,7 @@
     "postbuild": "./zipit.sh",
     "clean": "npx rimraf lib coverage *.log build 0x dist",
     "predebug": "npm run build:app",
-    "debug": "GTK_DEBUG=interactive gjs dist/polydock.js"
+    "debug": "GTK_DEBUG=interactive gjs dist/bin/polydock"
   },
   "ultra": {
     "concurrent": [

@@ -44,7 +44,6 @@ class Config {
     )
     this.path = resolve(GLib.path_get_dirname(this.path))
     this.theme = resolve(`${this.path}/config/themes/default.css`)
-    this.update()
   }
 
   update() {
@@ -137,19 +136,4 @@ icon-name=string to be part of class::instance`
   }
 }
 
-if (ARGV.includes("--help") || ARGV.includes("-h")) {
-  print(`usage: polydock
---dump-config
-  Prints the current config. Change in ~/.config/polydock/settings.ini`)
-  imports.system.exit(0)
-}
-
-const config = new Config()
-config.dump()
-
-if (ARGV.includes("--dump-config")) {
-  print(config.dump())
-  imports.system.exit(0)
-}
-
-export default config
+export default new Config()
