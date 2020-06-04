@@ -1,3 +1,16 @@
+## [1.2.0](https://github.com/folke/polydock/compare/1.1.1...1.2.0) (2020-06-04)
+
+
+### Features
+
+* ✨ use Gtk.Application to parse cmd-line args ([dcadbc0](https://github.com/folke/polydock/commit/dcadbc0d7d168a66171769192d8619c5d01b3ccf))
+
+
+### Bug Fixes
+
+* 🐛 find config directory when symlinked ([11b33c0](https://github.com/folke/polydock/commit/11b33c0f743f852022b4a54ebbbbf4e7cc86a89f))
+* 🐛 load system themes when no user themes availabel ([88fe332](https://github.com/folke/polydock/commit/88fe332dcdb905e869116c370b1e1cc54a891380))
+
 ### [1.1.1](https://github.com/folke/polydock/compare/1.1.0...1.1.1) (2020-06-03)
 
 ## 1.1.0 (2020-06-03)
