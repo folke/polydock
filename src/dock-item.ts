@@ -153,9 +153,9 @@ export class DockItem {
   }
 
   addMenuItem(item: DockItem, clear = false) {
-    let label = `${item.window
-      .get_workspace()
-      .get_name()}: ${item.window.get_name()}`
+    let label = `${
+      item.window.get_workspace()?.get_name() ?? "?"
+    }: ${item.window.get_name()}`
     if (label.length > 60) label = `${label.slice(0, 60)}...`
 
     if (clear) {
