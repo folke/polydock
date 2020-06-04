@@ -2,7 +2,8 @@
 
 **Polydock** is a fast and hackable application dock for your desktop.
 
-![](screenshot.png)
+![Polydock running on top of Polybar](screenshot.png)
+<small>↗ **Polydock** (in the middle), running on top of **Polybar**</small>
 
 ## ❓ Why another dock
 
