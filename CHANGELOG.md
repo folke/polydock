@@ -1,3 +1,17 @@
+## [1.3.0](https://github.com/folke/polydock/compare/1.2.2...1.3.0) (2020-06-04)
+
+
+### Features
+
+* ✨ toggle window if it's the only one in the group ([11c3fe1](https://github.com/folke/polydock/commit/11c3fe11aee6cd413e91e8a7df56140f81fdacae))
+
+
+### Bug Fixes
+
+* 🐛 better detection for auto hiding ([877be5c](https://github.com/folke/polydock/commit/877be5c5fe13669a877c1bba769397f64228ac89))
+* 🐛 no need to listen to viewport changes ([885157d](https://github.com/folke/polydock/commit/885157d3aef2d6fab5888efbfb1b413cadb91823))
+* 🐛 some windows don't have a workspace ([1c8e26d](https://github.com/folke/polydock/commit/1c8e26dc20c9feb18a4dce341c999a1c9aa30604))
+
 ### [1.2.2](https://github.com/folke/polydock/compare/1.2.1...1.2.2) (2020-06-04)
 
 ### [1.2.1](https://github.com/folke/polydock/compare/1.2.0...1.2.1) (2020-06-04)
