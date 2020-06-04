@@ -26,11 +26,12 @@ I recently started using [bspwm](https://github.com/baskerville/bspwm) as my mai
 * rules to define custom icons
 * clicking on a group cycles through the windows in that group
 * right click to get a popup with all open windows in that group
-* supports custom wm **unhide** commands
+* supports custom wm **hide** and **unhide** commands
 
   ```ini
   # Example for bspwm:
   unhideCommand = bspc node {window} -g hidden=off -f
+  hideCommand=bspc node {window} -g hidden=on -f
   ```
 
 ## 📦 Installation
@@ -85,6 +86,7 @@ activeWorkspaceOnly=false
 showHidden=true
 showVisible=true
 unhideCommand=bspc node {window} -g hidden=off -f
+hideCommand=bspc node {window} -g hidden=on -f
 
 #Rules for custom icons matching the class::instance of windows
 #icon-name=string to be part of class::instance

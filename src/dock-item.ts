@@ -76,20 +76,25 @@ export class DockItem {
     const activeId = this.window.get_screen().get_active_window()?.get_xid()
     const group = this.getGroupWindows()
 
-    // Cycle though existing windows, if active window is part of group
-    for (let g = 0; g < group.length; g++) {
-      if (group[g].get_xid() == activeId) {
-        if (g === group.length - 1) {
-          this.activate(group[0])
-        } else this.activate(group[g + 1])
-        return
+    if (group.length > 1) {
+      // Cycle though existing windows, if active window is part of group
+      for (let g = 0; g < group.length; g++) {
+        if (group[g].get_xid() == activeId) {
+          if (g === group.length - 1) {
+            this.activate(group[0])
+          } else this.activate(group[g + 1])
+          return
+        }
       }
     }
-    this.activate()
+    this.activate(this.window, true)
   }
 
-  activate(window = this.window) {
+  activate(window: Wnck.Window, toggle = false) {
+    log(`activate: ${toggle}`)
     const timestamp = new Date().getTime() / 1000
+
+    // Unhide the window if it's minimized / hidden
     if (this.isHidden(window)) {
       if (config.settings.behavior.unhideCommand) {
         const unhide = config.settings.behavior.unhideCommand.replace(
@@ -99,8 +104,26 @@ export class DockItem {
         log(`[unhide] ${unhide}`)
         GLib.spawn_command_line_async(unhide)
       }
+      window.activate(timestamp)
     }
-    window.activate(timestamp)
+    // Toggle it if it's the only one in the group and if it's the active window
+    else if (
+      toggle &&
+      window.get_screen().get_active_window()?.get_xid() == window.get_xid()
+    ) {
+      log("minimizing")
+      window.minimize()
+      if (config.settings.behavior.hideCommand) {
+        const hide = config.settings.behavior.hideCommand.replace(
+          "{window}",
+          `${window.get_xid()}`
+        )
+        log(`[hide] ${hide}`)
+        GLib.spawn_command_line_async(hide)
+      }
+    }
+    // Else, just show it
+    else window.activate(timestamp)
   }
 
   isHidden(window = this.window) {
@@ -172,7 +195,7 @@ export class DockItem {
       )
     )
     menuItem.connect("activate", () => {
-      item.activate()
+      item.activate(item.window, true)
     })
     this.menu.append(menuItem)
 
