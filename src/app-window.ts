@@ -6,6 +6,7 @@ import Gtk from "./types/Gtk-3.0"
 export class AppWindow {
   window: Gtk.ApplicationWindow
   dock: Dock
+  hidden = true
 
   constructor(application: Gtk.Application) {
     const win = new Gtk.ApplicationWindow({
@@ -66,8 +67,10 @@ export class AppWindow {
   }
 
   updateSize() {
+    if (this.hidden) this.autoHide()
+
     // Hide window when dock is hidden
-    if (this.dock.toolbar.get_visible()) this.window.show()
+    if (!this.hidden && this.dock.show) this.window.show()
     else {
       this.window.hide()
       return
@@ -135,7 +138,7 @@ export class AppWindow {
   }
 
   autoHide() {
-    const active = this.window.get_screen().get_active_window()
+    const active = this.dock.screen.get_active_window()
     if (active && this.window) {
       const [ax1, ay1, aw, ah] = active.get_geometry()
       const [bx1, by1] = this.window.get_position()
@@ -152,14 +155,16 @@ export class AppWindow {
       // no vertical overlap
       else if (ay1 >= by1 + bh || by1 >= ay1 + ah) show = true
 
-      if (show && !this.window.is_visible()) {
+      if (show && this.hidden) {
         log("[no-overlap] showing dock")
         this.window.show()
+        this.hidden = false
       }
 
-      if (!show && this.window.is_visible()) {
-        log(`[overlap] overlapping. Hiding dock`)
+      if (!show && !this.hidden) {
+        log(`[overlap] overlapping with ${active.get_name()}. Hiding dock`)
         this.window.hide()
+        this.hidden = true
       }
     }
     return true

@@ -7,6 +7,7 @@ export class Dock {
   items = new Map<number, DockItem>()
   toolbar = new Gtk.Toolbar()
   screen: Wnck.Screen
+  show = false
 
   constructor(public horizontal = true) {
     const screen = Wnck.Screen.get_default()
@@ -105,10 +106,10 @@ export class Dock {
     log(`[update] - ${event} [${buttonCount}]`)
     if (buttonCount) {
       log("[toobar] show")
-      this.toolbar.show()
+      this.show = true
     } else {
       log("[toobar] hide")
-      this.toolbar.hide()
+      this.show = false
     }
     this.toolbar.check_resize()
   }
