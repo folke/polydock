@@ -22,7 +22,6 @@ export class Dock {
     this.toolbar.show_all()
     this.screen.force_update()
     this.update("constructor")
-    screen.connect("viewports-changed", () => this.update("viewports-changed"))
     screen.connect("active-workspace-changed", () =>
       this.update("active-workspace-changed")
     )
