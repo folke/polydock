@@ -91,8 +91,8 @@ export class DockItem {
   activate(window = this.window) {
     const timestamp = new Date().getTime() / 1000
     if (this.isHidden(window)) {
-      if (config.settings.behaviour.unhideCommand) {
-        const unhide = config.settings.behaviour.unhideCommand.replace(
+      if (config.settings.behavior.unhideCommand) {
+        const unhide = config.settings.behavior.unhideCommand.replace(
           "{window}",
           `${window.get_xid()}`
         )
@@ -216,7 +216,7 @@ export class DockItem {
   }
 
   getGroupKey(window = this.window) {
-    const groupBy = config.settings.behaviour.groupBy
+    const groupBy = config.settings.behavior.groupBy
 
     if (!groupBy.length) return false
 

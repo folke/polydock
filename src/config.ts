@@ -13,7 +13,7 @@ const defaults = {
     iconSize: 40,
     theme: "default",
   },
-  behaviour: {
+  behavior: {
     groupBy: ["instance", "visibility"] as WindowGrouping[],
     activeWorkspaceOnly: false,
     showHidden: true,
@@ -118,7 +118,7 @@ class Config {
     ini.set_comment(
       "appearance",
       "offsetX",
-      "Addtional offsets to further fine-tune the position of the dock"
+      "Additional offsets to further fine-tune the position of the dock"
     )
     ini.set_comment("appearance", "position", "One of top, bottom, left, right")
     ini.set_comment("appearance", "alignment", "One of start, center, end")
@@ -129,9 +129,9 @@ class Config {
       `Full path to a css file, or 'default'.\nSee config/themes/default.css`
     )
     ini.set_comment(
-      "behaviour",
+      "behavior",
       "groupBy",
-      "Specifiy a list of keys to group windows on: class;instance;title;visibility"
+      "Specify a list of keys to group windows on: class;instance;title;visibility"
     )
     ini.set_comment(
       "icons",

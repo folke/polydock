@@ -75,13 +75,13 @@ export class Dock {
       const groupKey = item.getGroupKey()
       let visible = true
       if (
-        config.settings.behaviour.activeWorkspaceOnly &&
+        config.settings.behavior.activeWorkspaceOnly &&
         !item.window.is_on_workspace(workspace)
       )
         visible = false
-      if (!config.settings.behaviour.showHidden && item.isHidden())
+      if (!config.settings.behavior.showHidden && item.isHidden())
         visible = false
-      if (!config.settings.behaviour.showVisible && !item.isHidden())
+      if (!config.settings.behavior.showVisible && !item.isHidden())
         visible = false
 
       if (groupKey && groups.has(groupKey)) {
