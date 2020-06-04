@@ -1,6 +1,6 @@
 {
   "name": "polydock",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "main": "index.js",
   "author": "",
@@ -23,6 +23,14 @@
     }
   },
   "release-it": {
+    "hooks": {
+      "before:init": "ultra --color lint",
+      "after:bump": [
+        "ultra --color clean",
+        "ultra --color build:app"
+      ],
+      "before:github:release": "ultra --color zip"
+    },
     "npm": {
       "publish": false
     },
@@ -49,7 +57,7 @@
     "lint:ts": "npx tsc --noEmit",
     "lint:eslint": "npx eslint src/*.ts --cache",
     "lint": "npm run lint:eslint && npm run lint:ts",
-    "postbuild": "./zipit.sh",
+    "zip": "./zipit.sh",
     "clean": "npx rimraf lib coverage *.log build 0x dist",
     "predebug": "npm run build:app",
     "debug": "GTK_DEBUG=interactive gjs dist/bin/polydock"
