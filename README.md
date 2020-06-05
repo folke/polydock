@@ -145,4 +145,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 [Apache 2.0](https://github.com/folke/polydock/blob/master/LICENSE)
 
-<!-- markdownlint-disable-file MD014 -->
+<!-- markdownlint-disable-file MD014 MD033 -->

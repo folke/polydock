@@ -1,3 +1,6 @@
+// Force GdkX11 to load before Gdk
+import "./types/GdkX11-3.0"
+
 import { PolydockApp } from "./app"
 import Wnck from "./types/Wnck-3.0"
 
