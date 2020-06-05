@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/folke/polydock/compare/1.3.0...1.4.0) (2020-06-05)
+
+
+### Features
+
+* ✨ added option to set a custom icon theme ([f61ca71](https://github.com/folke/polydock/commit/f61ca71b1e32b459060cff5a7ac9344b08deb611))
+
 ## [1.3.0](https://github.com/folke/polydock/compare/1.2.2...1.3.0) (2020-06-04)
 
 
