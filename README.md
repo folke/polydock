@@ -78,6 +78,8 @@ iconSize=40
 #Full path to a css file, or 'default'.
 #See config/themes/default.css
 theme=default
+#An gtk icon theme name, or 'default'
+iconTheme=default
 
 [behavior]
 #Specify a list of keys to group windows on: class;instance;title;visibility

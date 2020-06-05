@@ -12,6 +12,7 @@ const defaults = {
     offsetY: 0,
     iconSize: 40,
     theme: "default",
+    iconTheme: "default",
   },
   behavior: {
     groupBy: ["instance", "visibility"] as WindowGrouping[],
@@ -128,6 +129,11 @@ class Config {
       "appearance",
       "theme",
       `Full path to a css file, or 'default'.\nSee config/themes/default.css`
+    )
+    ini.set_comment(
+      "appearance",
+      "iconTheme",
+      `An gtk icon theme name, or 'default'`
     )
     ini.set_comment(
       "behavior",

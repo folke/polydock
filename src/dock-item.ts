@@ -5,6 +5,7 @@ import GdkPixbuf from "./types/GdkPixbuf-2.0"
 import GLib from "./types/GLib-2.0"
 import Gtk from "./types/Gtk-3.0"
 import Wnck from "./types/Wnck-3.0"
+import { getXProp, XPropType } from "./xutil"
 
 export class DockItem {
   name: string
@@ -134,28 +135,63 @@ export class DockItem {
   }
 
   updateIcon() {
-    const iconTheme = Gtk.IconTheme.get_default()
-    let iconName = this.window.get_class_instance_name() || "application"
+    let iconTheme = Gtk.IconTheme.get_default()
+    if (
+      config.settings.appearance.iconTheme &&
+      config.settings.appearance.iconTheme !== "default"
+    ) {
+      iconTheme = new Gtk.IconTheme()
+      iconTheme.set_custom_theme(config.settings.appearance.iconTheme)
+    }
 
-    // Load custom icons from config
+    const cleanup = (iconName: string) => {
+      if (iconName) {
+        return iconName.replace(/\s+/gu, "").toLowerCase()
+      }
+    }
+
+    const lookup: (string | undefined)[] = []
+
+    const groupIcon = cleanup(this.window.get_class_group_name())
+    const instanceIcon = cleanup(this.window.get_class_instance_name())
+
+    lookup.push(
+      getXProp(
+        this.window.get_xid(),
+        "_GTK_APPLICATION_ID",
+        XPropType.UTF8_STRING
+      ),
+      instanceIcon
+    )
+
+    const noGroupIcons = ["brave-browser", "chromium-browser", "chrome-browser"]
+    if (groupIcon && !noGroupIcons.includes(groupIcon)) {
+      lookup.push(groupIcon)
+    }
+
+    // // Load custom icons from config
     for (const [iconK, iconV] of Object.entries(config.settings.icons)) {
       if (
-        iconName.toLowerCase().includes(iconV.toLowerCase()) &&
-        iconTheme.has_icon(iconK)
+        iconTheme.has_icon(iconK) &&
+        lookup.some((x) => `${x}`.includes(iconV.toLowerCase()))
       ) {
-        iconName = iconK
-        break
+        lookup.unshift(iconK)
       }
     }
 
     let icon: GdkPixbuf.Pixbuf | null = this.window.get_icon()
 
-    if (iconTheme.has_icon(iconName)) {
-      icon = iconTheme.load_icon(
-        iconName,
-        config.settings.appearance.iconSize,
-        Gtk.IconLookupFlags.FORCE_SIZE
-      )
+    const iconNames = lookup.filter((x) => x) as string[]
+
+    const iconInfo = iconTheme.choose_icon(
+      iconNames,
+      config.settings.appearance.iconSize,
+      Gtk.IconLookupFlags.FORCE_SIZE
+    )
+
+    if (iconInfo) {
+      log(`[icon] ${iconInfo.get_filename()}`)
+      icon = iconInfo.load_icon()
     } else {
       icon = icon.copy()
       if (icon)
