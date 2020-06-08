@@ -2,6 +2,7 @@ import config from "./config"
 import { DockItem } from "./dock-item"
 import Gtk from "./types/Gtk-3.0"
 import Wnck from "./types/Wnck-3.0"
+import { DockGroup } from "./group"
 
 export class Dock {
   items = new Map<number, DockItem>()
@@ -72,16 +73,16 @@ export class Dock {
     let buttonCount = 0
     for (const item of this.items.values()) {
       item.setClass("active", active == item.window.get_xid())
-      const groupKey = item.getGroupKey()
+      const groupKey = DockGroup.getGroupKey(item.window)
       let visible = true
       if (
         config.settings.behavior.activeWorkspaceOnly &&
         !item.window.is_on_workspace(workspace)
       )
         visible = false
-      if (!config.settings.behavior.showHidden && item.isHidden())
+      if (!config.settings.behavior.showHidden && item.window.is_minimized())
         visible = false
-      if (!config.settings.behavior.showVisible && !item.isHidden())
+      if (!config.settings.behavior.showVisible && !item.window.is_minimized())
         visible = false
 
       if (groupKey && groups.has(groupKey)) {

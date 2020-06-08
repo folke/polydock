@@ -1,10 +1,10 @@
 /* eslint-disable unicorn/no-null */
-import config, { WindowGrouping } from "./config"
+import config from "./config"
+import { DockGroup } from "./group"
 import Gdk from "./types/Gdk-3.0"
 import GdkPixbuf from "./types/GdkPixbuf-2.0"
 import Gtk from "./types/Gtk-3.0"
 import Wnck from "./types/Wnck-3.0"
-import { run } from "./util"
 import { getXProp, XPropType } from "./xutil"
 
 export class DockItem {
@@ -32,7 +32,7 @@ export class DockItem {
     })
 
     this.window.connect("state-changed", (_window, _changes, _newState) => {
-      this.setClass("hidden", this.isHidden())
+      this.setClass("hidden", this.window.is_minimized())
     })
 
     // Add hover states
@@ -49,7 +49,7 @@ export class DockItem {
         if (event.get_button()?.[1] == 3) {
           this.popup()
         } else if (event.get_button()?.[1] == 1) {
-          this.cycle()
+          DockGroup.doAction(this.window, config.settings.behavior.click)
         }
       }
     })
@@ -62,65 +62,6 @@ export class DockItem {
       Gdk.Gravity.SOUTH,
       Gdk.Gravity.NORTH,
       null
-    )
-  }
-
-  getGroupWindows() {
-    const group = this.getGroupKey()
-    return this.window
-      .get_screen()
-      .get_windows()
-      .filter((x) => this.getGroupKey(x) == group)
-  }
-
-  cycle() {
-    const activeId = this.window.get_screen().get_active_window()?.get_xid()
-    const group = this.getGroupWindows()
-
-    if (group.length > 1) {
-      // Cycle though existing windows, if active window is part of group
-      for (let g = 0; g < group.length; g++) {
-        if (group[g].get_xid() == activeId) {
-          if (g === group.length - 1) {
-            this.activate(group[0])
-          } else this.activate(group[g + 1])
-          return
-        }
-      }
-    }
-    this.activate(this.window, true)
-  }
-
-  activate(window: Wnck.Window, toggle = false) {
-    log(`activate: ${toggle}`)
-    const timestamp = new Date().getTime() / 1000
-
-    // Unhide the window if it's minimized / hidden
-    if (this.isHidden(window)) {
-      if (config.settings.commands.unhide) {
-        log(run(config.settings.commands.unhide, { window: window.get_xid() }))
-      }
-      window.activate(timestamp)
-    }
-    // Toggle it if it's the only one in the group and if it's the active window
-    else if (
-      toggle &&
-      window.get_screen().get_active_window()?.get_xid() == window.get_xid()
-    ) {
-      log("minimizing")
-      window.minimize()
-      if (config.settings.commands.hide) {
-        log(run(config.settings.commands.hide, { window: window.get_xid() }))
-      }
-    }
-    // Else, just show it
-    else window.activate(timestamp)
-  }
-
-  isHidden(window = this.window) {
-    return (
-      window.is_minimized() ||
-      (window.get_state() & Wnck.WindowState.HIDDEN) === Wnck.WindowState.HIDDEN
     )
   }
 
@@ -197,7 +138,7 @@ export class DockItem {
 
   update() {
     this.updateIcon()
-    this.setClass("hidden", this.isHidden())
+    this.setClass("hidden", this.window.is_minimized())
     this.addMenuItem(this, true)
   }
 
@@ -221,7 +162,7 @@ export class DockItem {
       )
     )
     menuItem.connect("activate", () => {
-      item.activate(item.window, true)
+      DockGroup.doAction(item.window, config.settings.behavior["menu-click"])
     })
     this.menu.append(menuItem)
 
@@ -249,26 +190,5 @@ export class DockItem {
 
   removeClass(klass: string) {
     this.iconWidget.get_style_context().remove_class(klass)
-  }
-
-  getGroupKeyValue(window: Wnck.Window, groupBy: WindowGrouping) {
-    switch (groupBy) {
-      case "class":
-        return window.get_class_group_name()
-      case "instance":
-        return window.get_class_instance_name()
-      case "title":
-        return window.get_name()
-      case "visibility":
-        return `hidden:${this.isHidden(window)}`
-    }
-  }
-
-  getGroupKey(window = this.window) {
-    const groupBy = config.settings.behavior.groupBy
-
-    if (!groupBy.length) return false
-
-    return groupBy.map((g) => this.getGroupKeyValue(window, g)).join(".")
   }
 }

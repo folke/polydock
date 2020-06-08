@@ -3,6 +3,7 @@ import GLib from "./types/GLib-2.0"
 import { fileExists, resolve, realpath } from "./util"
 
 export type WindowGrouping = "class" | "instance" | "title" | "visibility"
+export type DockAction = "show" | "hide" | "toggle" | "cycle" | "toggle-cycle"
 
 const defaults = {
   appearance: {
@@ -19,6 +20,8 @@ const defaults = {
     activeWorkspaceOnly: false,
     showHidden: true,
     showVisible: true,
+    click: "toggle-cycle" as DockAction,
+    "menu-click": "focus" as DockAction,
   },
   commands: {
     hide: "bspc node {window} -g hidden=on -f",
