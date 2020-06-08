@@ -24,14 +24,16 @@ I recently started using [bspwm](https://github.com/baskerville/bspwm) as my mai
 * show only visible windows, hidden windows, or both
 * updates icon when it changes in the application (great for google chrome web application windows)
 * rules to define custom icons
-* clicking on a group cycles through the windows in that group
-* right click to get a popup with all open windows in that group
+* exclude certain window classes / instances
+* clicking on a group cycles through the windows in that group (configurable)
+* right click to get a popup with all open windows in that group (configurable)
 * supports custom wm **hide** and **unhide** commands
 
   ```ini
   # Example for bspwm:
-  unhideCommand = bspc node {window} -g hidden=off -f
-  hideCommand=bspc node {window} -g hidden=on -f
+  [commands]
+  unhide = bspc node {window} -g hidden=off -f
+  hide = bspc node {window} -g hidden=on -f
   ```
 
 ## 📦 Installation
@@ -75,7 +77,7 @@ alignment=center
 offsetX=0
 offsetY=0
 iconSize=40
-#Full path to a css file, or 'default'.
+#Name of the theme file, or 'default'.
 #See config/themes/default.css
 theme=default
 #An gtk icon theme name, or 'default'
@@ -87,8 +89,15 @@ groupBy=instance;visibility;
 activeWorkspaceOnly=false
 showHidden=true
 showVisible=true
-unhideCommand=bspc node {window} -g hidden=off -f
-hideCommand=bspc node {window} -g hidden=on -f
+#Action on click. One of: show, hide, toggle, cycle, toggle-cycle
+click=toggle-cycle
+menu-click=focus
+#Exclude windows whose class or instance contains one of these values
+exclude=scratchpad;
+
+[commands]
+hide=bspc node {window} -g hidden=on -f
+unhide=bspc node {window} -g hidden=off -f
 
 #Rules for custom icons matching the class::instance of windows
 #icon-name=string to be part of class::instance

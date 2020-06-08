@@ -134,7 +134,7 @@ class Config {
     ini.set_comment(
       "appearance",
       "theme",
-      `Full path to a css file, or 'default'.\nSee config/themes/default.css`
+      `Name of the theme file, or 'default'.\nSee config/themes/default.css`
     )
     ini.set_comment(
       "appearance",
@@ -143,8 +143,18 @@ class Config {
     )
     ini.set_comment(
       "behavior",
+      "click",
+      "Action on click. One of: show, hide, toggle, cycle, toggle-cycle"
+    )
+    ini.set_comment(
+      "behavior",
       "groupBy",
       "Specify a list of keys to group windows on: class;instance;title;visibility"
+    )
+    ini.set_comment(
+      "behavior",
+      "exclude",
+      "Exclude windows whose class or instance contains one of these values"
     )
     ini.set_comment(
       "icons",
