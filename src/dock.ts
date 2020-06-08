@@ -85,6 +85,21 @@ export class Dock {
       if (!config.settings.behavior.showVisible && !item.window.is_minimized())
         visible = false
 
+      if (
+        config.settings.behavior.exclude.some(
+          (ex) =>
+            item.window
+              .get_class_instance_name()
+              ?.toLowerCase()
+              .includes(ex.toLowerCase()) ||
+            item.window
+              .get_class_group_name()
+              ?.toLowerCase()
+              .includes(ex.toLowerCase())
+        )
+      )
+        visible = false
+
       if (groupKey && groups.has(groupKey)) {
         visible = false
         groups.get(groupKey)?.addMenuItem(item)

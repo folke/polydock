@@ -22,6 +22,7 @@ const defaults = {
     showVisible: true,
     click: "toggle-cycle" as DockAction,
     "menu-click": "focus" as DockAction,
+    exclude: ["scratchpad"],
   },
   commands: {
     hide: "bspc node {window} -g hidden=on -f",
