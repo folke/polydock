@@ -1,3 +1,25 @@
+## [2.0.0](https://github.com/folke/polydock/compare/1.4.0...2.0.0) (2020-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* 💥 ♻️ moved hide/unhide config under [commands]
+
+### Features
+
+* ✨ added possibility to exclude certain windows ([0bf7251](https://github.com/folke/polydock/commit/0bf7251c1c7f39b4e1efa07673b27f0cbc7e9af3))
+* ✨ dock click actions are now configurable ([ca495c8](https://github.com/folke/polydock/commit/ca495c8f5db05416179e182c205f972bb3504e11))
+
+
+### Bug Fixes
+
+* 🐛 force loading GdkX11 before Gdk to make sure we loaded the correct version ([4bfd8f4](https://github.com/folke/polydock/commit/4bfd8f40cf0b26370e061f9c60f0c4e49cd0a21d))
+
+
+### Code Refactoring
+
+* 💥 ♻️ moved hide/unhide config under [commands] ([667670e](https://github.com/folke/polydock/commit/667670e5af277a630a82cd370c1750488d527603))
+
 ## [1.4.0](https://github.com/folke/polydock/compare/1.3.0...1.4.0) (2020-06-05)
 
 
