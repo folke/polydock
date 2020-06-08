@@ -53,3 +53,16 @@ export function realpath(path: string) {
   }
   return path
 }
+
+export function run(cmd: string, vars: Record<string, unknown> = {}) {
+  for (const [k, v] of Object.entries(vars)) {
+    cmd = cmd.replace(new RegExp(`\\{${k}\\}`, "giu"), `${v}`)
+  }
+  log(`[run] ${cmd}`)
+  const [success, stdout, stderr, exitCode] = GLib.spawn_command_line_sync(cmd)
+  if (!success)
+    throw new Error(
+      `Failed (${exitCode}) to execute ${cmd}: ${stdout}\n${stderr}`
+    )
+  return stdout ? imports.byteArray.toString(stdout) : ""
+}

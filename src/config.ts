@@ -19,8 +19,10 @@ const defaults = {
     activeWorkspaceOnly: false,
     showHidden: true,
     showVisible: true,
-    unhideCommand: "bspc node {window} -g hidden=off -f",
-    hideCommand: "bspc node {window} -g hidden=on -f",
+  },
+  commands: {
+    hide: "bspc node {window} -g hidden=on -f",
+    unhide: "bspc node {window} -g hidden=off -f",
   },
   icons: {
     "google-agenda": "calendar.google.com",

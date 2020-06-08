@@ -2,9 +2,9 @@
 import config, { WindowGrouping } from "./config"
 import Gdk from "./types/Gdk-3.0"
 import GdkPixbuf from "./types/GdkPixbuf-2.0"
-import GLib from "./types/GLib-2.0"
 import Gtk from "./types/Gtk-3.0"
 import Wnck from "./types/Wnck-3.0"
+import { run } from "./util"
 import { getXProp, XPropType } from "./xutil"
 
 export class DockItem {
@@ -97,13 +97,8 @@ export class DockItem {
 
     // Unhide the window if it's minimized / hidden
     if (this.isHidden(window)) {
-      if (config.settings.behavior.unhideCommand) {
-        const unhide = config.settings.behavior.unhideCommand.replace(
-          "{window}",
-          `${window.get_xid()}`
-        )
-        log(`[unhide] ${unhide}`)
-        GLib.spawn_command_line_async(unhide)
+      if (config.settings.commands.unhide) {
+        log(run(config.settings.commands.unhide, { window: window.get_xid() }))
       }
       window.activate(timestamp)
     }
@@ -114,13 +109,8 @@ export class DockItem {
     ) {
       log("minimizing")
       window.minimize()
-      if (config.settings.behavior.hideCommand) {
-        const hide = config.settings.behavior.hideCommand.replace(
-          "{window}",
-          `${window.get_xid()}`
-        )
-        log(`[hide] ${hide}`)
-        GLib.spawn_command_line_async(hide)
+      if (config.settings.commands.hide) {
+        log(run(config.settings.commands.hide, { window: window.get_xid() }))
       }
     }
     // Else, just show it
