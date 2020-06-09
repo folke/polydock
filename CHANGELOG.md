@@ -1,3 +1,10 @@
+### [2.0.1](https://github.com/folke/polydock/compare/2.0.0...2.0.1) (2020-06-09)
+
+
+### Bug Fixes
+
+* 🐛 menu-click default should be "show" ([ebae1f1](https://github.com/folke/polydock/commit/ebae1f1cdedf382635deba359ce1a216f7c8c61e))
+
 ## [2.0.0](https://github.com/folke/polydock/compare/1.4.0...2.0.0) (2020-06-08)
 
 
