@@ -21,7 +21,7 @@ const defaults = {
     showHidden: true,
     showVisible: true,
     click: "toggle-cycle" as DockAction,
-    "menu-click": "focus" as DockAction,
+    "menu-click": "show" as DockAction,
     exclude: ["scratchpad"],
   },
   commands: {

@@ -91,7 +91,7 @@ showHidden=true
 showVisible=true
 #Action on click. One of: show, hide, toggle, cycle, toggle-cycle
 click=toggle-cycle
-menu-click=focus
+menu-click=show
 #Exclude windows whose class or instance contains one of these values
 exclude=scratchpad;
 
