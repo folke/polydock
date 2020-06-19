@@ -2,6 +2,7 @@ import config from "./config"
 import { Dock } from "./dock"
 import Gdk from "./types/Gdk-3.0"
 import Gtk from "./types/Gtk-3.0"
+import Wnck from "./types/Wnck-3.0"
 
 export class AppWindow {
   window: Gtk.ApplicationWindow
@@ -70,11 +71,8 @@ export class AppWindow {
     if (this.hidden) this.autoHide()
 
     // Hide window when dock is hidden
-    if (!this.hidden && this.dock.show) this.window.show()
-    else {
-      this.window.hide()
-      return
-    }
+    if (this.hidden) return
+
     // Resize the window to fit the toolbar
     const [, naturalSize] = this.dock.toolbar.get_preferred_size()
     const size = this.window.get_size()
@@ -137,36 +135,49 @@ export class AppWindow {
     }
   }
 
-  autoHide() {
-    const active = this.dock.screen.get_active_window()
+  overlapsWithActiveWindow(): boolean {
+    let active: Wnck.Window | undefined = this.dock.screen.get_active_window()
+    if (active?.is_skip_tasklist()) active = undefined
+
     if (active && this.window) {
       const [ax1, ay1, aw, ah] = active.get_geometry()
       const [bx1, by1] = this.window.get_position()
       const [bw, bh] = this.window.get_size()
 
-      let show = false
+      let overlaps = true
+
       // No geometry
       if (bw === null || bh === null || bx1 === null || by1 === null)
-        show = true
+        overlaps = false
       else if (aw === null || ah === null || ax1 === null || ay1 === null)
-        show = true
+        overlaps = false
       // no horizontal overlap
-      else if (ax1 >= bx1 + bw || bx1 >= ax1 + aw) show = true
+      else if (ax1 >= bx1 + bw || bx1 >= ax1 + aw) overlaps = false
       // no vertical overlap
-      else if (ay1 >= by1 + bh || by1 >= ay1 + ah) show = true
+      else if (ay1 >= by1 + bh || by1 >= ay1 + ah) overlaps = false
+      return overlaps
+    }
+    return false
+  }
 
-      if (show && this.hidden) {
-        log("[no-overlap] showing dock")
-        this.window.show()
+  autoHide() {
+    const overlaps = this.overlapsWithActiveWindow()
+    const show = this.dock.show && !overlaps
+
+    if (show) {
+      if (this.hidden) {
+        log("[autohide] showing dock")
         this.hidden = false
       }
-
-      if (!show && !this.hidden) {
-        log(`[overlap] overlapping with ${active.get_name()}. Hiding dock`)
-        this.window.hide()
+      this.window.show()
+    } else {
+      if (!this.hidden) {
+        log(
+          `[autohide] hiding dock [overlaps=${overlaps}] [items=${this.dock.show}]`
+        )
         this.hidden = true
       }
+      this.window.hide()
     }
-    return true
   }
 }

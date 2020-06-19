@@ -36,7 +36,7 @@ export class Dock {
   }
 
   update(event: string) {
-    log(`[update] + ${event}`)
+    log(`[update:start] ${event}`)
     // this.screen.force_update()
     const windows = this.screen.get_windows()
     if (!windows) return log("No Windows!")
@@ -45,7 +45,7 @@ export class Dock {
     const xids = new Set<number>(windows.map((x) => x.get_xid()))
     for (const [xid, item] of this.items.entries()) {
       if (!xids.has(xid)) {
-        log(`- ${imports.system.refcount(item.window)} ${item.name}`)
+        log(`- ${item.name}`)
         this.items.delete(xid)
         this.toolbar.remove(item.button)
       }
@@ -60,10 +60,12 @@ export class Dock {
           this.update("workspace-changed")
         )
         const item = new DockItem(window, this.horizontal)
-        log(`+ ${imports.system.refcount(item.window)} ${item.name}`)
+        log(`+ ${item.name}`)
         this.toolbar.add(item.button)
         this.items.set(xid, item)
       }
+      // existing window
+      else log(`= ${this.items.get(xid)?.name}`)
     })
 
     // Update window state
@@ -75,17 +77,23 @@ export class Dock {
       item.setClass("active", active == item.window.get_xid())
       const groupKey = DockGroup.getGroupKey(item.window)
       let visible = true
-      if (
+      if (item.window.is_skip_tasklist()) visible = false
+      else if (
         config.settings.behavior.activeWorkspaceOnly &&
         !item.window.is_on_workspace(workspace)
       )
         visible = false
-      if (!config.settings.behavior.showHidden && item.window.is_minimized())
+      else if (
+        !config.settings.behavior.showHidden &&
+        item.window.is_minimized()
+      )
         visible = false
-      if (!config.settings.behavior.showVisible && !item.window.is_minimized())
+      else if (
+        !config.settings.behavior.showVisible &&
+        !item.window.is_minimized()
+      )
         visible = false
-
-      if (
+      else if (
         config.settings.behavior.exclude.some(
           (ex) =>
             item.window
@@ -118,12 +126,10 @@ export class Dock {
       } else item.button.hide()
     }
 
-    log(`[update] - ${event} [${buttonCount}]`)
+    log(`[update:end] #${buttonCount} items after ${event}`)
     if (buttonCount) {
-      log("[toobar] show")
       this.show = true
     } else {
-      log("[toobar] hide")
       this.show = false
     }
     this.toolbar.check_resize()
