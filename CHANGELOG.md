@@ -1,3 +1,11 @@
+### [2.0.3](https://github.com/folke/polydock/compare/2.0.2...2.0.3) (2020-06-19)
+
+
+### Bug Fixes
+
+* 🐛 better autohide and handling of windows with skip_tasklist (fixes [#4](https://github.com/folke/polydock/issues/4)) ([d7f4d75](https://github.com/folke/polydock/commit/d7f4d759b30a218c350012de40e2b81e78b062f2))
+* 🐛 hide empty dock when no items on startup ([f5bb013](https://github.com/folke/polydock/commit/f5bb013024eec8d88e779ad35c514e58469f49ba))
+
 ### [2.0.2](https://github.com/folke/polydock/compare/2.0.1...2.0.2) (2020-06-10)
 
 
