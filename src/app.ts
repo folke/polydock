@@ -58,7 +58,7 @@ export let PolydockApp = class extends Gtk.Application {
       config.update()
       this.window = new AppWindow(this)
     }
-    this.window.window.present()
+    // this.window.window.present()
     super.vfunc_activate?.()
   }
 }
