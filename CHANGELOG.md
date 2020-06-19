@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/folke/polydock/compare/2.0.3...2.1.0) (2020-06-19)
+
+
+### Features
+
+* ✨ added option to configure autohide ([31104c9](https://github.com/folke/polydock/commit/31104c9d201026c37c5f4f077a0c7ca90d37200d))
+
 ### [2.0.3](https://github.com/folke/polydock/compare/2.0.2...2.0.3) (2020-06-19)
 
 
