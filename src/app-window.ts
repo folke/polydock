@@ -161,7 +161,8 @@ export class AppWindow {
   }
 
   autoHide() {
-    const overlaps = this.overlapsWithActiveWindow()
+    const overlaps =
+      config.settings.behavior.autoHide && this.overlapsWithActiveWindow()
     const show = this.dock.show && !overlaps
 
     if (show) {

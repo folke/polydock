@@ -20,6 +20,7 @@ const defaults = {
     activeWorkspaceOnly: false,
     showHidden: true,
     showVisible: true,
+    autoHide: true,
     click: "toggle-cycle" as DockAction,
     "menu-click": "show" as DockAction,
     exclude: ["scratchpad"],
@@ -140,6 +141,11 @@ class Config {
       "appearance",
       "iconTheme",
       `An gtk icon theme name, or 'default'`
+    )
+    ini.set_comment(
+      "behavior",
+      "autoHide",
+      "Automatically hides Polydock if another window overlaps"
     )
     ini.set_comment(
       "behavior",

@@ -94,6 +94,8 @@ click=toggle-cycle
 menu-click=show
 #Exclude windows whose class or instance contains one of these values
 exclude=scratchpad;
+#Automatically hides Polydock if another window overlaps
+autoHide=true
 
 [commands]
 hide=bspc node {window} -g hidden=on -f
