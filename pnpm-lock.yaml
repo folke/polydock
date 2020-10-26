@@ -25,11 +25,11 @@ devDependencies:
   rimraf: 3.0.2
   rollup: 2.17.1
   rollup-plugin-copy: 3.3.0
-  rollup-plugin-terser: 6.1.0_rollup@2.17.1
+  rollup-plugin-terser: 7.0.2_rollup@2.17.1
   tslib: 2.0.0
   typescript: 3.9.5
   typesync: 0.7.0
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.1:
     dependencies:
@@ -37,10 +37,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-IGhtTmpjGbYzcEDOw7DcQtbQSXcG9ftmAXtWTu9V936vDye4xjjekktFAtgZsWpzTj/X01jocB46mTywm/4SZw==
+  /@babel/code-frame/7.10.4:
+    dependencies:
+      '@babel/highlight': 7.10.4
+    dev: true
+    resolution:
+      integrity: sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
   /@babel/helper-validator-identifier/7.10.1:
     dev: true
     resolution:
       integrity: sha512-5vW/JXLALhczRCWP0PnFDMCJAchlBvM7f4uk/jXritBnIa6E1KmqmtrS3yn1LAnxFBypQ3eneLuXjsnfQsgILw==
+  /@babel/helper-validator-identifier/7.10.4:
+    dev: true
+    resolution:
+      integrity: sha512-3U9y+43hz7ZM+rzG24Qe2mufW5KhvFg/NhnNph+i9mgCtdTCtMJuI1TMkrIUiK7Ix4PYlRF9I5dhqaLYA/ADXw==
   /@babel/highlight/7.10.1:
     dependencies:
       '@babel/helper-validator-identifier': 7.10.1
@@ -49,6 +59,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-8rMof+gVP8mxYZApLF/JgNDAkdKa+aJt3ZYxF8z6+j/hpeXL7iMsKCPHa2jNMHu/qqBwzQF4OHNoYi8dMA/rYg==
+  /@babel/highlight/7.10.4:
+    dependencies:
+      '@babel/helper-validator-identifier': 7.10.4
+      chalk: 2.4.2
+      js-tokens: 4.0.0
+    dev: true
+    resolution:
+      integrity: sha512-i6rgnR/YgPEQzZZnbTHHuZdlE8qyoBNalD6F+q4vAFlcMEcqmkoG+mPqJYJCo63qPf74+Y1UZsl3l6f7/RIkmA==
   /@iarna/toml/2.2.5:
     dev: true
     resolution:
@@ -2624,15 +2642,16 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-S/2fF5wH8SJA/kmwr6HYhK/RI/OkhD84k8ntalo0iJjZikgq1XFvR5M8NPT1x5F7fBwCG3qHfnzeP/Vh/ZxCUA==
-  /jest-worker/26.0.0:
+  /jest-worker/26.6.1:
     dependencies:
+      '@types/node': 14.0.9
       merge-stream: 2.0.0
       supports-color: 7.1.0
     dev: true
     engines:
-      node: '>= 10.14.2'
+      node: '>= 10.13.0'
     resolution:
-      integrity: sha512-pPaYa2+JnwmiZjK9x7p9BoZht+47ecFCDFA/CJxspHzeDvQcfVBLWzCiWyo+EGrSiQMWZtCFo9iSvMZnAAo8vw==
+      integrity: sha512-R5IE3qSGz+QynJx8y+ICEkdI2OJ3RJjRQVEyCcFAd3yVhQSEtquziPO29Mlzgn07LOVE8u8jhJ1FqcwegiXWOw==
   /js-tokens/4.0.0:
     dev: true
     resolution:
@@ -3930,18 +3949,18 @@ packages:
       node: '>=8.3'
     resolution:
       integrity: sha512-euDjCUSBXZa06nqnwCNADbkAcYDfzwowfZQkto9K/TFhiH+QG7I4PUsEMwM9tDgomGWJc//z7KLW8t+tZwxADA==
-  /rollup-plugin-terser/6.1.0_rollup@2.17.1:
+  /rollup-plugin-terser/7.0.2_rollup@2.17.1:
     dependencies:
-      '@babel/code-frame': 7.10.1
-      jest-worker: 26.0.0
+      '@babel/code-frame': 7.10.4
+      jest-worker: 26.6.1
       rollup: 2.17.1
-      serialize-javascript: 3.1.0
-      terser: 4.7.0
+      serialize-javascript: 4.0.0
+      terser: 5.3.8
     dev: true
     peerDependencies:
       rollup: ^2.0.0
     resolution:
-      integrity: sha512-4fB3M9nuoWxrwm39habpd4hvrbrde2W2GG4zEGPQg1YITNkM3Tqur5jSuXlWNzbv/2aMLJ+dZJaySc3GCD8oDw==
+      integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==
   /rollup/2.17.1:
     dev: true
     engines:
@@ -4022,12 +4041,12 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
-  /serialize-javascript/3.1.0:
+  /serialize-javascript/4.0.0:
     dependencies:
       randombytes: 2.1.0
     dev: true
     resolution:
-      integrity: sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
+      integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
   /shebang-command/1.2.0:
     dependencies:
       shebang-regex: 1.0.0
@@ -4100,6 +4119,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
+  /source-map/0.7.3:
+    dev: true
+    engines:
+      node: '>= 8'
+    resolution:
+      integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
   /sourcemap-codec/1.4.8:
     dev: true
     resolution:
@@ -4332,17 +4357,17 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-a6sumDlzyHVJWb8+YofY4TW112G6p2FCPEAFk+59gIYHv3XHRhm9ltVQ9kli4hNWeQBwSpe8cRN25x0ROunMOw==
-  /terser/4.7.0:
+  /terser/5.3.8:
     dependencies:
       commander: 2.20.3
-      source-map: 0.6.1
+      source-map: 0.7.3
       source-map-support: 0.5.19
     dev: true
     engines:
-      node: '>=6.0.0'
+      node: '>=10'
     hasBin: true
     resolution:
-      integrity: sha512-Lfb0RiZcjRDXCC3OSHJpEkxJ9Qeqs6mp2v4jf2MHfy8vGERmVDuvjXdd/EnP5Deme5F2yBRBymKmKHCBg2echw==
+      integrity: sha512-zVotuHoIfnYjtlurOouTazciEfL7V38QMAOhGqpXDEg6yT13cF4+fEP9b0rrCEQTn+tT46uxgFsTZzhygk+CzQ==
   /text-extensions/1.9.0:
     dev: true
     engines:
@@ -4763,7 +4788,7 @@ specifiers:
   rimraf: 3.0.2
   rollup: 2.17.1
   rollup-plugin-copy: 3.3.0
-  rollup-plugin-terser: 6.1.0
+  rollup-plugin-terser: 7.0.2
   tslib: 2.0.0
   typescript: 3.9.5
   typesync: 0.7.0
