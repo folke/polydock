@@ -1,5 +1,5 @@
 devDependencies:
-  '@release-it/conventional-changelog': 1.1.4
+  '@release-it/conventional-changelog': 2.0.0_release-it@13.6.3
   '@rollup/plugin-node-resolve': 8.0.1_rollup@2.17.1
   '@rollup/plugin-replace': 2.3.3_rollup@2.17.1
   '@rollup/plugin-sucrase': 3.0.2_rollup@2.17.1
@@ -29,7 +29,7 @@ devDependencies:
   tslib: 2.0.0
   typescript: 3.9.5
   typesync: 0.7.0
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@babel/code-frame/7.10.1:
     dependencies:
@@ -169,18 +169,20 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GorvORVwp244fGKEt3cgt/P+M0MGy4xEDbckw+K5ojEezxyMDgCaYPKVct+/eWQfZXOT7uq0xRpmrl/+hliabA==
-  /@release-it/conventional-changelog/1.1.4:
+  /@release-it/conventional-changelog/2.0.0_release-it@13.6.3:
     dependencies:
       concat-stream: 2.0.0
-      conventional-changelog: 3.1.21
-      conventional-recommended-bump: 6.0.9
-      prepend-file: 1.3.1
+      conventional-changelog: 3.1.23
+      conventional-recommended-bump: 6.0.10
+      prepend-file: 2.0.0
       release-it: 13.6.3
     dev: true
     engines:
       node: '>=8'
+    peerDependencies:
+      release-it: ^14.0.0
     resolution:
-      integrity: sha512-0e4qjsPvoGGkuT5YpCAQEv5LOGVa1nSAZay07NGmEhNZL/UxkAk2OJ2qoEAetqc08kA/DrLZL6gmCMs+fI9YOw==
+      integrity: sha512-S6mm01dtRsG0ouzcxQoTF2R9q4uhJyGV9NyDmt5Yamd/zbLAPhRmtwdekjKwEkAHQMvIcM1WfbEY/YoPVW0Jbw==
   /@rollup/plugin-node-resolve/8.0.1_rollup@2.17.1:
     dependencies:
       '@rollup/pluginutils': 3.1.0_rollup@2.17.1
@@ -946,13 +948,13 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-JrDGPAKjMGSP1G0DUoaceEJ3DZgAfr/q6X7FVk4+U5KxUSKviYGM2k6zWkfyyBHy5rAtzgYJFa1ro2O9PtoxwQ==
-  /compare-func/1.3.4:
+  /compare-func/2.0.0:
     dependencies:
       array-ify: 1.0.0
-      dot-prop: 3.0.0
+      dot-prop: 5.2.0
     dev: true
     resolution:
-      integrity: sha512-sq2sWtrqKPkEXAC8tEJA1+BqAH9GbFkGBtUOqrUX57VSfwp8xyktctk+uLoRy5eccTdxzDcVIztlYDpKs3Jv1Q==
+      integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==
   /compare-versions/3.6.0:
     dev: true
     resolution:
@@ -991,15 +993,15 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-/ozxhP9mcLa67wGp1IYaXL7EEgo=
-  /conventional-changelog-angular/5.0.10:
+  /conventional-changelog-angular/5.0.11:
     dependencies:
-      compare-func: 1.3.4
+      compare-func: 2.0.0
       q: 1.5.1
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-k7RPPRs0vp8+BtPsM9uDxRl6KcgqtCJmzRD1wRtgqmhQ96g8ifBGo9O/TZBG23jqlXS/rg8BKRDELxfnQQGiaA==
+      integrity: sha512-nSLypht/1yEflhuTogC03i7DX7sOrXGsRn14g131Potqi6cbGbGEE9PSDEHKldabB6N76HiSyw9Ph+kLmC04Qw==
   /conventional-changelog-atom/2.0.7:
     dependencies:
       q: 1.5.1
@@ -1016,26 +1018,26 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-Oralk1kiagn3Gb5cR5BffenWjVu59t/viE6UMD/mQa1hISMPkMYhJIqX+CMeA1zXgVBO+YHQhhokEj99GP5xcg==
-  /conventional-changelog-conventionalcommits/4.3.0:
+  /conventional-changelog-conventionalcommits/4.4.0:
     dependencies:
-      compare-func: 1.3.4
+      compare-func: 2.0.0
       lodash: 4.17.15
       q: 1.5.1
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-oYHydvZKU+bS8LnGqTMlNrrd7769EsuEHKy4fh1oMdvvDi7fem8U+nvfresJ1IDB8K00Mn4LpiA/lR+7Gs6rgg==
-  /conventional-changelog-core/4.1.7:
+      integrity: sha512-ybvx76jTh08tpaYrYn/yd0uJNLt5yMrb1BphDe4WBredMlvPisvMghfpnJb6RmRNcqXeuhR6LfGZGewbkRm9yA==
+  /conventional-changelog-core/4.2.0:
     dependencies:
       add-stream: 1.0.0
-      conventional-changelog-writer: 4.0.16
+      conventional-changelog-writer: 4.0.17
       conventional-commits-parser: 3.1.0
       dateformat: 3.0.3
       get-pkg-repo: 1.4.0
       git-raw-commits: 2.0.0
       git-remote-origin-url: 2.0.0
-      git-semver-tags: 4.0.0
+      git-semver-tags: 4.1.0
       lodash: 4.17.15
       normalize-package-data: 2.5.0
       q: 1.5.1
@@ -1047,7 +1049,7 @@ packages:
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-UBvSrQR2RdKbSQKh7RhueiiY4ZAIOW3+CSWdtKOwRv+KxIMNFKm1rOcGBFx0eA8AKhGkkmmacoTWJTqyz7Q0VA==
+      integrity: sha512-8+xMvN6JvdDtPbGBqA7oRNyZD4od1h/SIzrWqHcKZjitbVXrFpozEeyn4iI4af1UwdrabQpiZMaV07fPUTGd4w==
   /conventional-changelog-ember/2.0.8:
     dependencies:
       q: 1.5.1
@@ -1080,24 +1082,24 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-QCW6wF8QgPkq2ruPaxc83jZxoWQxLkt/pNxIDn/oYjMiVgrtqNdd7lWe3vsl0hw5ENHNf/ejXuzDHk6suKsRpg==
-  /conventional-changelog-jshint/2.0.7:
+  /conventional-changelog-jshint/2.0.8:
     dependencies:
-      compare-func: 1.3.4
+      compare-func: 2.0.0
       q: 1.5.1
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-qHA8rmwUnLiIxANJbz650+NVzqDIwNtc0TcpIa0+uekbmKHttidvQ1dGximU3vEDdoJVKFgR3TXFqYuZmYy9ZQ==
+      integrity: sha512-hB/iI0IiZwnZ+seYI+qEQ4b+EMQSEC8jGIvhO2Vpz1E5p8FgLz75OX8oB1xJWl+s4xBMB6f8zJr0tC/BL7YOjw==
   /conventional-changelog-preset-loader/2.3.4:
     dev: true
     engines:
       node: '>=10'
     resolution:
       integrity: sha512-GEKRWkrSAZeTq5+YjUZOYxdHq+ci4dNwHvpaBC3+ENalzFWuCWa9EZXSuZBpkr72sMdKB+1fyDV4takK1Lf58g==
-  /conventional-changelog-writer/4.0.16:
+  /conventional-changelog-writer/4.0.17:
     dependencies:
-      compare-func: 1.3.4
+      compare-func: 2.0.0
       conventional-commits-filter: 2.0.6
       dateformat: 3.0.3
       handlebars: 4.7.6
@@ -1112,25 +1114,25 @@ packages:
       node: '>=10'
     hasBin: true
     resolution:
-      integrity: sha512-jmU1sDJDZpm/dkuFxBeRXvyNcJQeKhGtVcFFkwTphUAzyYWcwz2j36Wcv+Mv2hU3tpvLMkysOPXJTLO55AUrYQ==
-  /conventional-changelog/3.1.21:
+      integrity: sha512-IKQuK3bib/n032KWaSb8YlBFds+aLmzENtnKtxJy3+HqDq5kohu3g/UdNbIHeJWygfnEbZjnCKFxAW0y7ArZAw==
+  /conventional-changelog/3.1.23:
     dependencies:
-      conventional-changelog-angular: 5.0.10
+      conventional-changelog-angular: 5.0.11
       conventional-changelog-atom: 2.0.7
       conventional-changelog-codemirror: 2.0.7
-      conventional-changelog-conventionalcommits: 4.3.0
-      conventional-changelog-core: 4.1.7
+      conventional-changelog-conventionalcommits: 4.4.0
+      conventional-changelog-core: 4.2.0
       conventional-changelog-ember: 2.0.8
       conventional-changelog-eslint: 3.0.8
       conventional-changelog-express: 2.0.5
       conventional-changelog-jquery: 3.0.10
-      conventional-changelog-jshint: 2.0.7
+      conventional-changelog-jshint: 2.0.8
       conventional-changelog-preset-loader: 2.3.4
     dev: true
     engines:
       node: '>=10'
     resolution:
-      integrity: sha512-ZGecVZPEo3aC75VVE4nu85589dDhpMyqfqgUM5Myq6wfKWiNqhDJLSDMsc8qKXshZoY7dqs1hR0H/15kI/G2jQ==
+      integrity: sha512-sScUu2NHusjRC1dPc5p8/b3kT78OYr95/Bx7Vl8CPB8tF2mG1xei5iylDTRjONV5hTlzt+Cn/tBWrKdd299b7A==
   /conventional-commits-filter/2.0.6:
     dependencies:
       lodash.ismatch: 4.4.0
@@ -1155,14 +1157,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-RSo5S0WIwXZiRxUGTPuYFbqvrR4vpJ1BDdTlthFgvHt5kEdnd1+pdvwWphWn57/oIl4V72NMmOocFqqJ8mFFhA==
-  /conventional-recommended-bump/6.0.9:
+  /conventional-recommended-bump/6.0.10:
     dependencies:
       concat-stream: 2.0.0
       conventional-changelog-preset-loader: 2.3.4
       conventional-commits-filter: 2.0.6
       conventional-commits-parser: 3.1.0
       git-raw-commits: 2.0.0
-      git-semver-tags: 4.0.0
+      git-semver-tags: 4.1.0
       meow: 7.0.1
       q: 1.5.1
     dev: true
@@ -1170,7 +1172,7 @@ packages:
       node: '>=10'
     hasBin: true
     resolution:
-      integrity: sha512-DpRmW1k8CpRrcsXHOPGgHgOd4BMGiq2gtXAveGM8B9pSd9b4r4WKnqp1Fd0vkDtk8l973mIk8KKKUYnKRr9SFw==
+      integrity: sha512-2ibrqAFMN3ZA369JgVoSbajdD/BHN6zjY7DZFKTHzyzuQejDUCjQ85S5KHxCRxNwsbDJhTPD5hOKcis/jQhRgg==
   /core-util-is/1.0.2:
     dev: true
     resolution:
@@ -1404,14 +1406,6 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
-  /dot-prop/3.0.0:
-    dependencies:
-      is-obj: 1.0.1
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
   /dot-prop/5.2.0:
     dependencies:
       is-obj: 2.0.0
@@ -2033,7 +2027,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-UoJlna4hBxRaERJhEq0yFuxfpl8=
-  /git-semver-tags/4.0.0:
+  /git-semver-tags/4.1.0:
     dependencies:
       meow: 7.0.1
       semver: 6.3.0
@@ -2042,7 +2036,7 @@ packages:
       node: '>=10'
     hasBin: true
     resolution:
-      integrity: sha512-LajaAWLYVBff+1NVircURJFL8TQ3EMIcLAfHisWYX/nPoMwnTYfWAznQDmMujlLqoD12VtLmoSrF1sQ5MhimEQ==
+      integrity: sha512-TcxAGeo03HdErzKzi4fDD+xEL7gi8r2Y5YSxH6N2XYdVSV5UkBwfrt7Gqo1b+uSHCjy/sa9Y6BBBxxFLxfbhTg==
   /git-up/4.0.1:
     dependencies:
       is-ssh: 1.3.1
@@ -2514,12 +2508,6 @@ packages:
       node: '>=0.12.0'
     resolution:
       integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
-  /is-obj/1.0.1:
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
   /is-obj/2.0.0:
     dev: true
     engines:
@@ -3530,14 +3518,15 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
-  /prepend-file/1.3.1:
+  /prepend-file/2.0.0:
     dependencies:
-      tmp: 0.0.31
+      path-exists: 4.0.0
+      temp-write: 4.0.0
     dev: true
     engines:
-      node: '>=0.10.0'
+      node: '>=10.17 <11 || >=11.14'
     resolution:
-      integrity: sha1-g7FuC0rBkB/OiNvZRaIvTMgd9Xk=
+      integrity: sha512-U6on3jv5hQ+CNEO7gFn00PUlm3F/oXIQTMg6jpeQTQHLYSZl/Cxb4NpH44FA0By+maPXpfUaqmCoPUTu/Z3/8g==
   /prepend-http/2.0.0:
     dev: true
     engines:
@@ -4326,6 +4315,24 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-wmEc8m4fjnob4gt5riFRtTu/6+4rSe12TpAELNSqHMfF3IqnA+CH37USM6/YR3qRZv7e56kAEAtd6nKZaxe0Ug==
+  /temp-dir/1.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-CnwOom06Oa+n4OvqnB/AvE2qAR0=
+  /temp-write/4.0.0:
+    dependencies:
+      graceful-fs: 4.2.4
+      is-stream: 2.0.0
+      make-dir: 3.1.0
+      temp-dir: 1.0.0
+      uuid: 3.4.0
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-HIeWmj77uOOHb0QX7siN3OtwV3CTntquin6TNVg6SHOqCP3hYKmox90eeFOGaY1MqJ9WYDDjkyZrW6qS5AWpbw==
   /term-size/2.2.0:
     dev: true
     engines:
@@ -4384,14 +4391,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-M96dvTalPT3YbYLaKaCuwu+j06D/8Jfib0o/PxbVt6Amhv3dUAtW6rTV1jPgJSBG83I/e04Y6xkVdVhSRhi0ww==
-  /tmp/0.0.31:
-    dependencies:
-      os-tmpdir: 1.0.2
-    dev: true
-    engines:
-      node: '>=0.4.0'
-    resolution:
-      integrity: sha1-jzirlDjhcxXl29izZX6L+yd65Kc=
   /tmp/0.0.33:
     dependencies:
       os-tmpdir: 1.0.2
@@ -4610,6 +4609,11 @@ packages:
     dev: true
     resolution:
       integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+  /uuid/3.4.0:
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
   /uuid/8.1.0:
     dev: true
     hasBin: true
@@ -4737,7 +4741,7 @@ packages:
     resolution:
       integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==
 specifiers:
-  '@release-it/conventional-changelog': 1.1.4
+  '@release-it/conventional-changelog': 2.0.0
   '@rollup/plugin-node-resolve': 8.0.1
   '@rollup/plugin-replace': 2.3.3
   '@rollup/plugin-sucrase': 3.0.2
