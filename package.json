@@ -91,7 +91,7 @@
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-unicorn": "20.1.0",
-    "husky": "4.2.5",
+    "husky": "6.0.0",
     "prettier": "2.0.5",
     "release-it": "13.6.3",
     "rimraf": "3.0.2",
