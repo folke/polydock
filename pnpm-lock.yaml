@@ -6,7 +6,7 @@ specifiers:
   '@rollup/plugin-replace': 2.3.3
   '@rollup/plugin-sucrase': 3.0.2
   '@rollup/plugin-typescript': 4.1.2
-  '@types/eslint': 7.2.12
+  '@types/eslint': 7.2.13
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/prettier': 2.0.1
   '@types/rimraf': 3.0.0
@@ -38,7 +38,7 @@ devDependencies:
   '@rollup/plugin-replace': 2.3.3_rollup@2.17.1
   '@rollup/plugin-sucrase': 3.0.2_rollup@2.17.1
   '@rollup/plugin-typescript': 4.1.2_6a4b37073026c248f6a6d6c63a7bec0f
-  '@types/eslint': 7.2.12
+  '@types/eslint': 7.2.13
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/prettier': 2.0.1
   '@types/rimraf': 3.0.0
@@ -330,8 +330,8 @@ packages:
       '@types/json-schema': 7.0.4
     dev: true
 
-  /@types/eslint/7.2.12:
-    resolution: {integrity: sha512-HjikV/jX6e0Pg4DcB+rtOBKSrG6w5IaxWpmi3efL/eLxMz5lZTK+W1DKERrX5a+mNzL78axfsDNXu7JHFP4uLg==}
+  /@types/eslint/7.2.13:
+    resolution: {integrity: sha512-LKmQCWAlnVHvvXq4oasNUMTJJb2GwSyTY8+1C7OH5ILR8mPLaljv1jxL1bXW3xB3jFbQxTKxJAvI8PyjB09aBg==}
     dependencies:
       '@types/estree': 0.0.44
       '@types/json-schema': 7.0.4
