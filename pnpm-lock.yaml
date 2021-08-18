@@ -9,7 +9,7 @@ specifiers:
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/prettier': 2.0.1
-  '@types/rimraf': 3.0.1
+  '@types/rimraf': 3.0.2
   '@typescript-eslint/eslint-plugin': 3.3.0
   '@typescript-eslint/parser': 3.3.0
   '@zeit/ncc': 0.22.3
@@ -41,7 +41,7 @@ devDependencies:
   '@types/eslint': 7.2.14
   '@types/eslint-plugin-prettier': 3.1.0
   '@types/prettier': 2.0.1
-  '@types/rimraf': 3.0.1
+  '@types/rimraf': 3.0.2
   '@typescript-eslint/eslint-plugin': 3.3.0_ad2bf4cdb035e99029e69870b904755d
   '@typescript-eslint/parser': 3.3.0_eslint@7.3.0+typescript@3.9.10
   '@zeit/ncc': 0.22.3
@@ -417,8 +417,8 @@ packages:
       '@types/node': 14.0.9
     dev: true
 
-  /@types/rimraf/3.0.1:
-    resolution: {integrity: sha512-CAoSlbco40aKZ0CkelBF2g3JeN6aioRaTVnqSX5pWsn/WApm6IDxI4e4tD9D0dY/meCkyyleP1IQDVN13F4maA==}
+  /@types/rimraf/3.0.2:
+    resolution: {integrity: sha512-F3OznnSLAUxFrCEu/L5PY8+ny8DtcFRjx7fZZ9bycvXRi3KPTRS9HOitGZwvPg0juRhXFWIeKX58cnX5YqLohQ==}
     dependencies:
       '@types/glob': 7.1.1
       '@types/node': 14.0.9
