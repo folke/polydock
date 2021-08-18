@@ -27,7 +27,7 @@ specifiers:
   rimraf: 3.0.2
   rollup: 2.17.1
   rollup-plugin-copy: 3.3.0
-  rollup-plugin-terser: 6.1.0
+  rollup-plugin-terser: 7.0.2
   tslib: 2.0.0
   typescript: 3.9.10
   typesync: 0.7.0
@@ -59,7 +59,7 @@ devDependencies:
   rimraf: 3.0.2
   rollup: 2.17.1
   rollup-plugin-copy: 3.3.0
-  rollup-plugin-terser: 6.1.0_rollup@2.17.1
+  rollup-plugin-terser: 7.0.2_rollup@2.17.1
   tslib: 2.0.0
   typescript: 3.9.10
   typesync: 0.7.0
@@ -72,14 +72,32 @@ packages:
       '@babel/highlight': 7.10.1
     dev: true
 
+  /@babel/code-frame/7.12.13:
+    resolution: {integrity: sha512-HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g==}
+    dependencies:
+      '@babel/highlight': 7.14.0
+    dev: true
+
   /@babel/helper-validator-identifier/7.10.1:
     resolution: {integrity: sha512-5vW/JXLALhczRCWP0PnFDMCJAchlBvM7f4uk/jXritBnIa6E1KmqmtrS3yn1LAnxFBypQ3eneLuXjsnfQsgILw==}
+    dev: true
+
+  /@babel/helper-validator-identifier/7.14.0:
+    resolution: {integrity: sha512-V3ts7zMSu5lfiwWDVWzRDGIN+lnCEUdaXgtVHJgLb1rGaA6jMrtB9EmE7L18foXJIE8Un/A/h6NJfGQp/e1J4A==}
     dev: true
 
   /@babel/highlight/7.10.1:
     resolution: {integrity: sha512-8rMof+gVP8mxYZApLF/JgNDAkdKa+aJt3ZYxF8z6+j/hpeXL7iMsKCPHa2jNMHu/qqBwzQF4OHNoYi8dMA/rYg==}
     dependencies:
       '@babel/helper-validator-identifier': 7.10.1
+      chalk: 2.4.2
+      js-tokens: 4.0.0
+    dev: true
+
+  /@babel/highlight/7.14.0:
+    resolution: {integrity: sha512-YSCOwxvTYEIMSGaBQb5kDDsCopDdiUGsqpatp3fOlI4+2HQSkTmEVWnVuySdAC5EWCqSWWTv0ib63RjR7dTBdg==}
+    dependencies:
+      '@babel/helper-validator-identifier': 7.14.0
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
@@ -2451,10 +2469,11 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /jest-worker/26.0.0:
-    resolution: {integrity: sha512-pPaYa2+JnwmiZjK9x7p9BoZht+47ecFCDFA/CJxspHzeDvQcfVBLWzCiWyo+EGrSiQMWZtCFo9iSvMZnAAo8vw==}
-    engines: {node: '>= 10.14.2'}
+  /jest-worker/26.6.2:
+    resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
+    engines: {node: '>= 10.13.0'}
     dependencies:
+      '@types/node': 14.0.9
       merge-stream: 2.0.0
       supports-color: 7.1.0
     dev: true
@@ -3636,16 +3655,16 @@ packages:
       is-plain-object: 3.0.0
     dev: true
 
-  /rollup-plugin-terser/6.1.0_rollup@2.17.1:
-    resolution: {integrity: sha512-4fB3M9nuoWxrwm39habpd4hvrbrde2W2GG4zEGPQg1YITNkM3Tqur5jSuXlWNzbv/2aMLJ+dZJaySc3GCD8oDw==}
+  /rollup-plugin-terser/7.0.2_rollup@2.17.1:
+    resolution: {integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==}
     peerDependencies:
       rollup: ^2.0.0
     dependencies:
-      '@babel/code-frame': 7.10.1
-      jest-worker: 26.0.0
+      '@babel/code-frame': 7.12.13
+      jest-worker: 26.6.2
       rollup: 2.17.1
-      serialize-javascript: 3.1.0
-      terser: 4.7.0
+      serialize-javascript: 4.0.0
+      terser: 5.7.0
     dev: true
 
   /rollup/2.17.1:
@@ -3722,8 +3741,8 @@ packages:
     hasBin: true
     dev: true
 
-  /serialize-javascript/3.1.0:
-    resolution: {integrity: sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==}
+  /serialize-javascript/4.0.0:
+    resolution: {integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==}
     dependencies:
       randombytes: 2.1.0
     dev: true
@@ -3790,6 +3809,11 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /source-map/0.7.3:
+    resolution: {integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==}
+    engines: {node: '>= 8'}
     dev: true
 
   /sourcemap-codec/1.4.8:
@@ -4004,13 +4028,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /terser/4.7.0:
-    resolution: {integrity: sha512-Lfb0RiZcjRDXCC3OSHJpEkxJ9Qeqs6mp2v4jf2MHfy8vGERmVDuvjXdd/EnP5Deme5F2yBRBymKmKHCBg2echw==}
-    engines: {node: '>=6.0.0'}
+  /terser/5.7.0:
+    resolution: {integrity: sha512-HP5/9hp2UaZt5fYkuhNBR8YyRcT8juw8+uFbAme53iN9hblvKnLUTKkmwJG6ocWpIKf8UK4DoeWG4ty0J6S6/g==}
+    engines: {node: '>=10'}
     hasBin: true
     dependencies:
       commander: 2.20.3
-      source-map: 0.6.1
+      source-map: 0.7.3
       source-map-support: 0.5.19
     dev: true
 
