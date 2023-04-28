@@ -10,12 +10,12 @@ import GLib from "./types/GLib-2.0"
 export let PolydockApp = class extends Gtk.Application {
   window?: AppWindow
 
-  _init() {
+  constructor() {
     const props: Gtk.Application_ConstructProps = {
       application_id: "org.polydock",
       flags: Gio.ApplicationFlags.FLAGS_NONE,
     }
-    super._init(props)
+    super(props)
     super.add_main_option(
       "version",
       0,
