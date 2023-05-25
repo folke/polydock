@@ -1497,6 +1497,7 @@ packages:
 
   /eslint-config-prettier@6.11.0(eslint@7.3.0):
     resolution: {integrity: sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==}
+    hasBin: true
     peerDependencies:
       eslint: '>=3.14.1'
     dependencies:
