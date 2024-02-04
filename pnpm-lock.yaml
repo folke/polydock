@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 devDependencies:
   '@release-it/conventional-changelog':
     specifier: 1.1.4
@@ -54,7 +58,7 @@ devDependencies:
     version: 11.1.0(eslint@7.3.0)
   eslint-plugin-prettier:
     specifier: 3.1.4
-    version: 3.1.4(eslint@7.3.0)(prettier@2.0.5)
+    version: 3.1.4(eslint@7.3.0)(prettier@3.2.5)
   eslint-plugin-promise:
     specifier: 4.2.1
     version: 4.2.1
@@ -65,8 +69,8 @@ devDependencies:
     specifier: 4.2.5
     version: 4.2.5
   prettier:
-    specifier: 2.0.5
-    version: 2.0.5
+    specifier: 3.2.5
+    version: 3.2.5
   release-it:
     specifier: 13.6.3
     version: 13.6.3
@@ -1597,7 +1601,7 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /eslint-plugin-prettier@3.1.4(eslint@7.3.0)(prettier@2.0.5):
+  /eslint-plugin-prettier@3.1.4(eslint@7.3.0)(prettier@3.2.5):
     resolution: {integrity: sha512-jZDa8z76klRqo+TdGDTFJSavwbnWK2ZpqGKNZ+VvweMW516pDUMmQ2koXvxEE4JhzNvTv+radye/bWGBmA6jmg==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -1605,7 +1609,7 @@ packages:
       prettier: '>=1.13.0'
     dependencies:
       eslint: 7.3.0
-      prettier: 2.0.5
+      prettier: 3.2.5
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -3392,9 +3396,10 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier@2.0.5:
-    resolution: {integrity: sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==}
-    engines: {node: '>=10.13.0'}
+  /prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /process-nextick-args@2.0.1:
