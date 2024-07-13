@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 devDependencies:
   '@release-it/conventional-changelog':
     specifier: 1.1.4
@@ -23,8 +27,8 @@ devDependencies:
     specifier: 3.1.0
     version: 3.1.0
   '@types/prettier':
-    specifier: 2.0.1
-    version: 2.0.1
+    specifier: 3.0.0
+    version: 3.0.0
   '@types/rimraf':
     specifier: 3.0.2
     version: 3.0.2
@@ -54,7 +58,7 @@ devDependencies:
     version: 11.1.0(eslint@7.3.0)
   eslint-plugin-prettier:
     specifier: 3.1.4
-    version: 3.1.4(eslint@7.3.0)(prettier@2.0.5)
+    version: 3.1.4(eslint@7.3.0)(prettier@3.3.3)
   eslint-plugin-promise:
     specifier: 4.2.1
     version: 4.2.1
@@ -65,8 +69,8 @@ devDependencies:
     specifier: 4.2.5
     version: 4.2.5
   prettier:
-    specifier: 2.0.5
-    version: 2.0.5
+    specifier: 3.3.3
+    version: 3.3.3
   release-it:
     specifier: 13.6.3
     version: 13.6.3
@@ -439,8 +443,11 @@ packages:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
     dev: true
 
-  /@types/prettier@2.0.1:
-    resolution: {integrity: sha512-boy4xPNEtiw6N3abRhBi/e7hNvy3Tt8E9ZRAQrwAGzoCGZS/1wjo9KY7JHhnfnEsG5wSjDbymCozUM9a3ea7OQ==}
+  /@types/prettier@3.0.0:
+    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
+    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
+    dependencies:
+      prettier: 3.3.3
     dev: true
 
   /@types/resolve@0.0.8:
@@ -1597,7 +1604,7 @@ packages:
       semver: 6.3.0
     dev: true
 
-  /eslint-plugin-prettier@3.1.4(eslint@7.3.0)(prettier@2.0.5):
+  /eslint-plugin-prettier@3.1.4(eslint@7.3.0)(prettier@3.3.3):
     resolution: {integrity: sha512-jZDa8z76klRqo+TdGDTFJSavwbnWK2ZpqGKNZ+VvweMW516pDUMmQ2koXvxEE4JhzNvTv+radye/bWGBmA6jmg==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -1605,7 +1612,7 @@ packages:
       prettier: '>=1.13.0'
     dependencies:
       eslint: 7.3.0
-      prettier: 2.0.5
+      prettier: 3.3.3
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -3392,9 +3399,10 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier@2.0.5:
-    resolution: {integrity: sha512-7PtVymN48hGcO4fGjybyBSIWDsLU4H4XlvOHfq91pz9kkGlonzwTfYkaIEwiRg/dAJF9YlbsduBAgtYLi+8cFg==}
-    engines: {node: '>=10.13.0'}
+  /prettier@3.3.3:
+    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /process-nextick-args@2.0.1:
