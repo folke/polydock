@@ -95,7 +95,7 @@
     "prettier": "2.0.5",
     "release-it": "13.6.3",
     "rimraf": "3.0.2",
-    "rollup": "2.17.1",
+    "rollup": "2.79.2",
     "rollup-plugin-copy": "3.3.0",
     "rollup-plugin-terser": "6.1.0",
     "tslib": "2.0.0",
